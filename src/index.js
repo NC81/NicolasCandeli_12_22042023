@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Error from './pages/error'
-import Layout from './layouts/layout'
-import Profile from './pages/profile'
-import './index.css'
+import Error from './pages/error/error'
+import Layout from './layouts/layout/layout'
+import Profile from './pages/profile/profile'
+import './styles/main.scss'
 
 const router = createBrowserRouter([
   {
