@@ -1,4 +1,7 @@
+@import './utils/variables.scss';
 @import './base/base.scss';
 @import '../layouts/layout/layout.scss';
 @import '../layouts/header/header.scss';
 @import '../layouts/sidebar/sidebar.scss';
+@import '../components/averageScoreChart/averageScoreChart.scss';
+@import '../pages/profile/profile.scss';

@@ -1,0 +1,32 @@
+.avg-score-chart {
+  position: relative;
+  width: 258px;
+  // height: 263px;
+  padding: 24px 20px 20px;
+  background: $color-secondary;
+  border-radius: 5px;
+  &__title {
+    position: absolute;
+    margin-left: 10px;
+    font-size: 15px;
+    line-height: 24px;
+    color: $color-quaternary;
+  }
+  &__legend {
+    position: absolute;
+    width: 95px;
+    top: 107px;
+    // left: 83px;
+    left: calc(50% - 95px / 2);
+    z-index: 1;
+    text-align: center;
+    font-size: 16px;
+    line-height: 26px;
+    color: $color-quinary;
+    :first-child {
+      font-size: 26px;
+      font-weight: bold;
+      color: $color-tertiary;
+    }
+  }
+}
