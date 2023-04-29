@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom'
 import AverageScoreChart from '../../components/averageScoreChart/averageScoreChart'
-
+import KeyInfos from '../../components/keyInfos/keyInfos'
+import useParamsInt from '../../utils/hooks'
 import {
   findMockUserMainData,
   // findMockUserActivity,
@@ -9,16 +9,14 @@ import {
 } from '../../services/findUserData/mock'
 
 export default function Profile() {
-  const { id } = useParams()
+  const id = useParamsInt()
+  const { userInfos } = findMockUserMainData(id)
   console.log(
     findMockUserMainData(id)
     // findMockUserActivity(id),
     // findMockUserAverageSessions(id),
     // findMockUserPerformance(id)
   )
-  const { userInfos } = findMockUserMainData(id)
-  const score =
-    findMockUserMainData(id).todayScore ?? findMockUserMainData(id).score
 
   return (
     <div className="db-wrapper">
@@ -32,7 +30,8 @@ export default function Profile() {
         <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </header>
       <main>
-        <AverageScoreChart score={score} />
+        <AverageScoreChart id={id} />
+        <KeyInfos id={id} />
       </main>
     </div>
   )
