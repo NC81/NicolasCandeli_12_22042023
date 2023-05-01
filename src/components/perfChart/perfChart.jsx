@@ -11,28 +11,25 @@ export default function PerfChart({ data }) {
     <>
       <div className="perf-chart">
         <RadarChart
-          cx={300}
-          cy={250}
-          outerRadius={150}
-          width={500}
-          height={500}
+          cx={129}
+          cy={132}
+          outerRadius={90}
+          width={258}
+          height={263}
           data={data}
         >
           <PolarGrid radialLines={false} />
-          <PolarAngleAxis dataKey="name" />
+          <PolarAngleAxis
+            dataKey="name"
+            tick={{ fill: 'white', fontSize: 12 }}
+          />
           <PolarRadiusAxis
             tick={false}
             axisLine={false}
             tickCount={6}
             // domain={[0, 250]}
           />
-          <Radar
-            name="Mike"
-            dataKey="value"
-            stroke="#8884d8"
-            fill="#8884d8"
-            fillOpacity={0.6}
-          />
+          <Radar name="Mike" dataKey="value" fill="#FF0101" fillOpacity={0.7} />
         </RadarChart>
       </div>
     </>
