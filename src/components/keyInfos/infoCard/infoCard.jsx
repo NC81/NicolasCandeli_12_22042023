@@ -4,8 +4,8 @@ import apple from '../../../assets/apple.svg'
 import cheeseburger from '../../../assets/cheeseburger.svg'
 
 export default function InfoCard({ el, value }) {
-  function createCardDetails(arg) {
-    switch (arg) {
+  function createCardDetails(prop) {
+    switch (prop) {
       case 'calorieCount':
         return {
           name: 'Calories',
@@ -38,7 +38,14 @@ export default function InfoCard({ el, value }) {
           icon: `${cheeseburger}`,
           alt: 'Burger',
         }
-      // no default
+      default:
+        return {
+          name: 'Calories',
+          unit: 'kCal',
+          color: 'rgba(255, 0, 0, 0.07)',
+          icon: `${energy}`,
+          alt: 'Flamme',
+        }
     }
   }
 
