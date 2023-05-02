@@ -51,7 +51,7 @@ export default function ScoreChart({ data }) {
           startAngle={200}
           endAngle={-160}
           cornerRadius={5}
-          stroke={0}
+          // stroke={0}
         ></Pie>
       </PieChart>
     </div>

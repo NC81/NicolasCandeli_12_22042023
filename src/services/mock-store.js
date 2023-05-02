@@ -24,7 +24,7 @@ export default class MockStore {
     return userWeekSessions
   }
 
-  // get activity() {
+  // get _activity() {
   //   const userActivity = mockData.USER_ACTIVITY.find(
   //     (el) => el.userId === this.id
   //   )

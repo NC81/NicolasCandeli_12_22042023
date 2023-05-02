@@ -1,19 +1,26 @@
 import useParamsInt from '../../utils/hooks'
-import User from '../../utils/user'
-import ScoreChart from '../../components/averageScoreChart/scoreChart'
+import MockStore from '../../services/mock-store'
+import Format from '../../utils/format'
+import ScoreChart from '../../components/scoreChart/scoreChart'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import PerfChart from '../../components/perfChart/perfChart'
 import SessionsChart from '../../components/sessionsChart/sessionsChart'
+// import ActivityChart from '../../components/activityChart/activityChart'
 
 export default function Profile() {
   const id = useParamsInt()
-  const newUser = new User(id)
-  const { score, todayScore } = newUser.main
-  const { firstName } = newUser.main.userInfos
-  const { keyData } = newUser.main
-  const { performance } = newUser
-  const { weekSessions } = newUser
-  console.log('Profile newUser', newUser)
+
+  const newMockStore = new MockStore(id)
+  const { score, todayScore } = newMockStore.main
+  const { firstName } = newMockStore.main.userInfos
+  const { keyData } = newMockStore.main
+  // const { _activity } = newMockStore
+  console.log('Profile newMockStore', newMockStore)
+
+  const newFormat = new Format(id)
+  const { performance } = newFormat
+  const { weekSessions } = newFormat
+  console.log('Profile newFormat', newFormat)
 
   return (
     <div className="db-wrapper">
@@ -29,6 +36,7 @@ export default function Profile() {
         <KeyInfos data={keyData} />
         <PerfChart data={performance} />
         <SessionsChart data={weekSessions} />
+        {/* <ActivityChart data={_activity} /> */}
       </main>
     </div>
   )

@@ -1,6 +1,12 @@
 import MockStore from '../services/mock-store'
 
-export default class User extends MockStore {
+export default class Format {
+  constructor(id) {
+    const newMockStore = new MockStore(id)
+    this._performance = newMockStore._performance
+    this._weekSessions = newMockStore._weekSessions
+  }
+
   get performance() {
     const newKind = {
       1: 'Cardio',
@@ -10,7 +16,7 @@ export default class User extends MockStore {
       5: 'Vitesse',
       6: 'Intensité',
     }
-    const { data } = super._performance
+    const { data } = this._performance
 
     data.map((el) => {
       return (el.name = newKind[el.kind])
@@ -30,7 +36,7 @@ export default class User extends MockStore {
       6: 'S',
       7: 'D',
     }
-    const { sessions } = super._weekSessions
+    const { sessions } = this._weekSessions
 
     if (sessions.length === 7) {
       sessions.unshift({ day: 0, sessionLength: sessions[0].sessionLength })
