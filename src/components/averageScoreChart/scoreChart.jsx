@@ -1,7 +1,6 @@
-// import { findMockUserMainData } from '../../services/findUserData/mock'
 import { PieChart, Pie } from 'recharts'
 
-export default function AverageScoreChart({ data }) {
+export default function ScoreChart({ data }) {
   const scoreAsPercent = Number(data) * 100
   const restAsPercent = 100 - scoreAsPercent
   const data1 = [

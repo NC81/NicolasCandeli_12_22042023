@@ -1,8 +1,9 @@
 import useParamsInt from '../../utils/hooks'
 import User from '../../utils/user'
-import AverageScoreChart from '../../components/averageScoreChart/averageScoreChart'
+import ScoreChart from '../../components/averageScoreChart/scoreChart'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import PerfChart from '../../components/perfChart/perfChart'
+import SessionsChart from '../../components/sessionsChart/sessionsChart'
 
 export default function Profile() {
   const id = useParamsInt()
@@ -11,6 +12,8 @@ export default function Profile() {
   const { firstName } = newUser.main.userInfos
   const { keyData } = newUser.main
   const { performance } = newUser
+  const { weekSessions } = newUser
+  console.log('Profile newUser', newUser)
 
   return (
     <div className="db-wrapper">
@@ -22,9 +25,10 @@ export default function Profile() {
         <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </header>
       <main>
-        <AverageScoreChart data={score ?? todayScore} />
+        <ScoreChart data={score ?? todayScore} />
         <KeyInfos data={keyData} />
         <PerfChart data={performance} />
+        <SessionsChart data={weekSessions} />
       </main>
     </div>
   )

@@ -6,15 +6,22 @@ export default class MockStore {
   }
 
   get main() {
-    const userMainData = mockData.USER_MAIN_DATA.find((el) => el.id === this.id)
-    return userMainData
+    const userMain = mockData.USER_MAIN_DATA.find((el) => el.id === this.id)
+    return userMain
   }
 
   get _performance() {
-    const userPerfData = mockData.USER_PERFORMANCE.find(
+    const userPerformance = mockData.USER_PERFORMANCE.find(
       (el) => el.userId === this.id
     )
-    return userPerfData
+    return userPerformance
+  }
+
+  get _weekSessions() {
+    const userWeekSessions = mockData.USER_AVERAGE_SESSIONS.find(
+      (el) => el.userId === this.id
+    )
+    return userWeekSessions
   }
 
   // get activity() {
@@ -22,12 +29,5 @@ export default class MockStore {
   //     (el) => el.userId === this.id
   //   )
   //   return userActivity
-  // }
-
-  // get sessions() {
-  //   const userAverageSessions = mockData.USER_AVERAGE_SESSIONS.find(
-  //     (el) => el.userId === this.id
-  //   )
-  //   return userAverageSessions
   // }
 }
