@@ -1,20 +1,8 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import SessionsChartTooltip from './sessionsChartTooltip/sessionsChartTooltip'
 
 export default function SessionsChart({ data }) {
   console.log('SessionsChart data', data)
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <>
-          <div className="custom-tooltip">
-            <p className="label">{`${payload[0].value} min`}</p>
-          </div>
-        </>
-      )
-    }
-    return null
-  }
 
   return (
     <div className="sessions-chart">
@@ -31,17 +19,18 @@ export default function SessionsChart({ data }) {
         }}
       >
         <XAxis
-          dataKey="name"
+          dataKey="letter"
           style={{
             fontSize: '12px',
             fill: 'rgba(255, 255, 255, 0.6)',
           }}
           axisLine={false}
           tickLine={false}
+          // tickMargin={25}
         ></XAxis>
         <YAxis hide domain={[-20, 150]}></YAxis>
         <Tooltip
-          content={<CustomTooltip />}
+          content={<SessionsChartTooltip />}
           wrapperStyle={{ outline: 'none' }}
         />
         <defs>

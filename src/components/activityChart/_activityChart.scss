@@ -1,0 +1,14 @@
+.activity-chart {
+  position: relative;
+  width: 835px;
+  height: 320px;
+  background-color: $color-secondary;
+  border-radius: 5px;
+  &__title {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    font-size: 15px;
+    color: $color-senary;
+  }
+}

@@ -20,7 +20,7 @@ export default function PerfChart({ data }) {
         >
           <PolarGrid radialLines={false} />
           <PolarAngleAxis
-            dataKey="name"
+            dataKey="type"
             tick={{ fill: 'white', fontSize: 12 }}
           />
           <PolarRadiusAxis

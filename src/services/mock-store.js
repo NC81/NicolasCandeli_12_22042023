@@ -24,10 +24,10 @@ export default class MockStore {
     return userWeekSessions
   }
 
-  // get _activity() {
-  //   const userActivity = mockData.USER_ACTIVITY.find(
-  //     (el) => el.userId === this.id
-  //   )
-  //   return userActivity
-  // }
+  get _activity() {
+    const userActivity = mockData.USER_ACTIVITY.find(
+      (el) => el.userId === this.id
+    )
+    return userActivity
+  }
 }

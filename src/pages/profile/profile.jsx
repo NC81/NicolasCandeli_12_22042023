@@ -5,21 +5,21 @@ import ScoreChart from '../../components/scoreChart/scoreChart'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import PerfChart from '../../components/perfChart/perfChart'
 import SessionsChart from '../../components/sessionsChart/sessionsChart'
-// import ActivityChart from '../../components/activityChart/activityChart'
+import ActivityChart from '../../components/activityChart/activityChart'
 
 export default function Profile() {
   const id = useParamsInt()
 
   const newMockStore = new MockStore(id)
-  const { score, todayScore } = newMockStore.main
   const { firstName } = newMockStore.main.userInfos
+  const { score, todayScore } = newMockStore.main
   const { keyData } = newMockStore.main
-  // const { _activity } = newMockStore
   console.log('Profile newMockStore', newMockStore)
 
   const newFormat = new Format(id)
   const { performance } = newFormat
   const { weekSessions } = newFormat
+  const { activity } = newFormat
   console.log('Profile newFormat', newFormat)
 
   return (
@@ -36,7 +36,7 @@ export default function Profile() {
         <KeyInfos data={keyData} />
         <PerfChart data={performance} />
         <SessionsChart data={weekSessions} />
-        {/* <ActivityChart data={_activity} /> */}
+        <ActivityChart data={activity} />
       </main>
     </div>
   )

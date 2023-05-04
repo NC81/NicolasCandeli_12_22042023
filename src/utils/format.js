@@ -5,6 +5,7 @@ export default class Format {
     const newMockStore = new MockStore(id)
     this._performance = newMockStore._performance
     this._weekSessions = newMockStore._weekSessions
+    this._activity = newMockStore._activity
   }
 
   get performance() {
@@ -19,7 +20,7 @@ export default class Format {
     const { data } = this._performance
 
     data.map((el) => {
-      return (el.name = newKind[el.kind])
+      return (el.type = newKind[el.kind])
     })
 
     return data.toReversed()
@@ -44,7 +45,20 @@ export default class Format {
     }
 
     sessions.map((el) => {
-      return (el.name = days[el.day])
+      return (el.letter = days[el.day])
+    })
+
+    return sessions
+  }
+
+  get activity() {
+    const { sessions } = this._activity
+
+    sessions.map((el) => {
+      const dayString = el.day.split('-')[2]
+      return (el.number = dayString.includes('0')
+        ? el.day.split('-')[2].replace('0', '')
+        : null)
     })
 
     return sessions

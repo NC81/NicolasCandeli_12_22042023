@@ -1,0 +1,26 @@
+.activity-chart-legend {
+  display: flex;
+  position: absolute;
+  top: calc(-24px - 65px);
+  right: -15px;
+  line-height: 24px;
+  gap: 32px;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: $color-quinary;
+  }
+  &__icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    &--weight {
+      background-color: $color-tertiary;
+    }
+    &--calories {
+      background-color: $color-primary;
+    }
+  }
+}
