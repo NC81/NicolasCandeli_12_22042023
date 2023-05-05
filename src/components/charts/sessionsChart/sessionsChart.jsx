@@ -1,5 +1,6 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
-import SessionsChartTooltip from './sessionsChartTooltip/sessionsChartTooltip'
+import PropTypes from 'prop-types'
+import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts'
+import SessionsChartTooltip from './tooltip/sessionsChartTooltip'
 
 export default function SessionsChart({ data }) {
   console.log('SessionsChart data', data)
@@ -19,7 +20,7 @@ export default function SessionsChart({ data }) {
         }}
       >
         <XAxis
-          dataKey="letter"
+          dataKey="dayLetter"
           style={{
             fontSize: '12px',
             fill: 'rgba(255, 255, 255, 0.6)',
@@ -49,4 +50,8 @@ export default function SessionsChart({ data }) {
       </LineChart>
     </div>
   )
+}
+
+SessionsChart.propTypes = {
+  data: PropTypes.array.isRequired,
 }

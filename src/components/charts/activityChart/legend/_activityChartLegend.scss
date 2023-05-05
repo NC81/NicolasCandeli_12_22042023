@@ -1,8 +1,6 @@
 .activity-chart-legend {
   display: flex;
-  position: absolute;
-  top: calc(-24px - 65px);
-  right: -15px;
+  width: max-content;
   line-height: 24px;
   gap: 32px;
   li {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import energy from '../../../assets/energy.svg'
 import chicken from '../../../assets/chicken.svg'
 import apple from '../../../assets/apple.svg'
@@ -73,4 +74,9 @@ export default function InfoCard({ el, value }) {
       </div>
     </div>
   )
+}
+
+InfoCard.propTypes = {
+  el: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 }

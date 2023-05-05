@@ -1,5 +1,6 @@
-import ActivityChartLegend from './activityChartLegend/activityChartLegend'
-import ActivityChartTooltip from './activityChartTooltip/activityChartTooltip'
+import PropTypes from 'prop-types'
+import ActivityChartLegend from './legend/activityChartLegend'
+import ActivityChartTooltip from './tooltip/activityChartTooltip'
 import {
   BarChart,
   Bar,
@@ -28,18 +29,23 @@ export default function ActivityChart({ data }) {
             top: 112,
             right: 40,
             left: 0,
-            bottom: 23,
+            bottom: 0,
           }}
           barGap={8}
         >
-          <Legend verticalAlign="top" content={<ActivityChartLegend />} />
+          <Legend
+            width={278}
+            height={24}
+            content={<ActivityChartLegend />}
+            wrapperStyle={{ top: 24, right: 26 }}
+          />
           <CartesianGrid
             strokeDasharray="2 2"
             stroke="#DEDEDE"
             vertical={false}
           />
           <XAxis
-            dataKey="number"
+            dataKey="dayNumber"
             tickMargin={16}
             stroke="#DEDEDE"
             tickLine={false}
@@ -92,4 +98,8 @@ export default function ActivityChart({ data }) {
       </ResponsiveContainer>
     </div>
   )
+}
+
+ActivityChart.propTypes = {
+  data: PropTypes.array.isRequired,
 }

@@ -23,7 +23,7 @@ export default class Format {
       return (el.type = newKind[el.kind])
     })
 
-    return data.toReversed()
+    return [...data].reverse()
   }
 
   get weekSessions() {
@@ -37,15 +37,16 @@ export default class Format {
       6: 'S',
       7: 'D',
     }
-    const { sessions } = this._weekSessions
+    let { sessions } = this._weekSessions
 
-    if (sessions.length === 7) {
-      sessions.unshift({ day: 0, sessionLength: sessions[0].sessionLength })
-      sessions.push({ day: 0, sessionLength: sessions[7].sessionLength })
-    }
+    sessions = [
+      { day: 0, sessionLength: sessions[0].sessionLength },
+      ...sessions,
+      { day: 0, sessionLength: sessions[6].sessionLength },
+    ]
 
     sessions.map((el) => {
-      return (el.letter = days[el.day])
+      return (el.dayLetter = days[el.day])
     })
 
     return sessions
@@ -56,9 +57,12 @@ export default class Format {
 
     sessions.map((el) => {
       const dayString = el.day.split('-')[2]
-      return (el.number = dayString.includes('0')
-        ? el.day.split('-')[2].replace('0', '')
-        : null)
+      const dayCharactersArray = dayString.split('')
+
+      return (el.dayNumber =
+        dayCharactersArray[0] === '0'
+          ? el.day.split('-')[2].replace('0', '')
+          : el.day.split('-')[2])
     })
 
     return sessions

@@ -1,7 +1,9 @@
-import { PieChart, Pie } from 'recharts'
+import PropTypes from 'prop-types'
+import { PieChart, Pie, Legend } from 'recharts'
+import ScoreChartLegend from './legend/scoreChartLegend'
 
 export default function ScoreChart({ data }) {
-  const scoreAsPercent = Number(data) * 100
+  const scoreAsPercent = data * 100
   const restAsPercent = 100 - scoreAsPercent
   const data1 = [
     {
@@ -24,22 +26,25 @@ export default function ScoreChart({ data }) {
   ]
 
   return (
-    <div className="avg-score-chart">
-      <h2 className="avg-score-chart__title">Score</h2>
-      <p className="avg-score-chart__legend">
-        <span>{scoreAsPercent}%</span>
-        <br />
-        <span>de votre objectif</span>
-      </p>
-      <PieChart width={220} height={220}>
+    <div className="score-chart">
+      <h2 className="score-chart__title">Score</h2>
+      <PieChart width={220} height={220} wrapperStyle={{ outline: 'none' }}>
+        <Legend
+          width={58}
+          height={82}
+          layout="vertical"
+          verticalAlign="middle"
+          content={<ScoreChartLegend score={scoreAsPercent} />}
+          wrapperStyle={{ outline: 'none' }}
+        />
         <Pie
           data={data1}
           dataKey="value"
           cx="50%"
           cy="50%"
           outerRadius={80}
-          stroke={0}
           isAnimationActive={false}
+          wrapperStyle={{ outline: 'none' }}
         ></Pie>
         <Pie
           data={data2}
@@ -51,9 +56,13 @@ export default function ScoreChart({ data }) {
           startAngle={200}
           endAngle={-160}
           cornerRadius={5}
-          // stroke={0}
+          stroke="transparent"
         ></Pie>
       </PieChart>
     </div>
   )
+}
+
+ScoreChart.propTypes = {
+  data: PropTypes.number.isRequired,
 }

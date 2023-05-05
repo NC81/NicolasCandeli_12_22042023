@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import InfoCard from './infoCard/infoCard'
 
 export default function KeyInfos({ data }) {
@@ -8,4 +9,8 @@ export default function KeyInfos({ data }) {
       })}
     </div>
   )
+}
+
+KeyInfos.propTypes = {
+  data: PropTypes.object.isRequired,
 }

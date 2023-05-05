@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export default function ActivityChartTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
@@ -8,4 +10,9 @@ export default function ActivityChartTooltip({ active, payload }) {
     )
   }
   return null
+}
+
+ActivityChartTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.array,
 }

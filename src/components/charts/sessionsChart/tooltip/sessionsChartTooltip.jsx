@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types'
+
 export default function SessionsChartTooltip({ active, payload }) {
+  console.log('payload sessions tooltip', payload)
   if (active && payload && payload.length) {
     return (
       <div className="sessions-chart-tooltip">
@@ -7,4 +10,9 @@ export default function SessionsChartTooltip({ active, payload }) {
     )
   }
   return null
+}
+
+SessionsChartTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.array,
 }

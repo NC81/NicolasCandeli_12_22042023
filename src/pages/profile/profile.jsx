@@ -1,11 +1,11 @@
 import useParamsInt from '../../utils/hooks'
 import MockStore from '../../services/mock-store'
 import Format from '../../utils/format'
-import ScoreChart from '../../components/scoreChart/scoreChart'
 import KeyInfos from '../../components/keyInfos/keyInfos'
-import PerfChart from '../../components/perfChart/perfChart'
-import SessionsChart from '../../components/sessionsChart/sessionsChart'
-import ActivityChart from '../../components/activityChart/activityChart'
+import ScoreChart from '../../components/charts/scoreChart/scoreChart'
+import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
+import SessionsChart from '../../components/charts/sessionsChart/sessionsChart'
+import ActivityChart from '../../components/charts/activityChart/activityChart'
 
 export default function Profile() {
   const id = useParamsInt()
@@ -34,7 +34,7 @@ export default function Profile() {
       <main>
         <ScoreChart data={score ?? todayScore} />
         <KeyInfos data={keyData} />
-        <PerfChart data={performance} />
+        <PerformanceChart data={performance} />
         <SessionsChart data={weekSessions} />
         <ActivityChart data={activity} />
       </main>
