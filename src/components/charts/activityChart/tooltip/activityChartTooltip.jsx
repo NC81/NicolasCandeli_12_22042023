@@ -14,5 +14,5 @@ export default function ActivityChartTooltip({ active, payload }) {
 
 ActivityChartTooltip.propTypes = {
   active: PropTypes.bool,
-  payload: PropTypes.array,
+  payload: PropTypes.arrayOf(PropTypes.object),
 }

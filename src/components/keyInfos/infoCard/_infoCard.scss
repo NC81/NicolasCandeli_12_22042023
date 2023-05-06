@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding-left: 32px;
-  width: 100%;
+  width: 258px;
   height: 124px;
   gap: 24px;
   background-color: $color-secondary;
@@ -25,5 +25,8 @@
       color: $color-tertiary;
       font-weight: bold;
     }
+  }
+  &--hidden {
+    width: 258px;
   }
 }

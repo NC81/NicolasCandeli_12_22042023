@@ -23,20 +23,31 @@ export default function Profile() {
   console.log('Profile newFormat', newFormat)
 
   return (
-    <div className="db-wrapper">
-      <header className="db-header">
-        <h1 className="db-header-title">
-          Bonjour{' '}
-          <span className="db-header-title__first-name">{firstName}</span>
-        </h1>
-        <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+    <div className="dash-wrapper">
+      <header>
+        <div className="dash-header-title">
+          <h1 className="dash-header-title-greetings">
+            Bonjour{' '}
+            <span className="dash-header-title-greetings__name">
+              {firstName}
+            </span>
+          </h1>
+          <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+        </div>
+        <div className="dash-header-hidden"></div>
       </header>
+
       <main>
-        <ScoreChart data={score ?? todayScore} />
+        <div className="dash-charts">
+          <ActivityChart data={activity} />
+          <div className="dash-charts__group">
+            {' '}
+            <SessionsChart data={weekSessions} />
+            <PerformanceChart data={performance} />
+            <ScoreChart data={score ?? todayScore} />
+          </div>
+        </div>
         <KeyInfos data={keyData} />
-        <PerformanceChart data={performance} />
-        <SessionsChart data={weekSessions} />
-        <ActivityChart data={activity} />
       </main>
     </div>
   )
