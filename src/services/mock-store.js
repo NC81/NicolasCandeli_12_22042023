@@ -3,6 +3,7 @@ const mockData = require('../data/mock-global')
 export default class MockStore {
   constructor(id) {
     this.id = id
+    this.isUserValid = this.main ? true : false
   }
 
   get main() {
@@ -10,21 +11,21 @@ export default class MockStore {
     return userMain
   }
 
-  get _performance() {
+  get performance() {
     const userPerformance = mockData.USER_PERFORMANCE.find(
       (el) => el.userId === this.id
     )
     return userPerformance
   }
 
-  get _weekSessions() {
+  get weekSessions() {
     const userWeekSessions = mockData.USER_AVERAGE_SESSIONS.find(
       (el) => el.userId === this.id
     )
     return userWeekSessions
   }
 
-  get _activity() {
+  get activity() {
     const userActivity = mockData.USER_ACTIVITY.find(
       (el) => el.userId === this.id
     )

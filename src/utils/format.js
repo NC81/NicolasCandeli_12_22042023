@@ -3,9 +3,9 @@ import MockStore from '../services/mock-store'
 export default class Format {
   constructor(id) {
     const newMockStore = new MockStore(id)
-    this._performance = newMockStore._performance
-    this._weekSessions = newMockStore._weekSessions
-    this._activity = newMockStore._activity
+    this._performance = newMockStore.performance
+    this._weekSessions = newMockStore.weekSessions
+    this._activity = newMockStore.activity
   }
 
   get performance() {
