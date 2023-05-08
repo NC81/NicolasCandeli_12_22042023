@@ -1,6 +1,6 @@
 import { useRouteLoaderData } from 'react-router-dom'
+import ApiStore from '../../services/api-store'
 import MockStore from '../../services/mock-store'
-import Format from '../../utils/format'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import ScoreChart from '../../components/charts/scoreChart/scoreChart'
 import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
@@ -9,6 +9,9 @@ import ActivityChart from '../../components/charts/activityChart/activityChart'
 
 export default function Profile() {
   const data = useRouteLoaderData('root')
+  console.log('data', data)
+  const { firstName, activity, averageSessions, performance, score, keyData } =
+    data
 
   return (
     <div className="dash-wrapper">
@@ -17,7 +20,7 @@ export default function Profile() {
           <h1 className="dash-header-title-greetings">
             Bonjour{' '}
             <span className="dash-header-title-greetings__name">
-              {data.firstName}
+              {firstName}
             </span>
           </h1>
           <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
@@ -27,37 +30,29 @@ export default function Profile() {
 
       <main>
         <div className="dash-charts">
-          <ActivityChart data={data.activity} />
+          <ActivityChart data={activity} />
           <div className="dash-charts__group">
-            <SessionsChart data={data.weekSessions} />
-            <PerformanceChart data={data.performance} />
-            <ScoreChart data={data.score} />
+            <SessionsChart data={averageSessions} />
+            <PerformanceChart data={performance} />
+            <ScoreChart data={score} />
           </div>
         </div>
-        <KeyInfos data={data.keyData} />
+        <KeyInfos data={keyData} />
       </main>
     </div>
   )
 }
 
-export function rootLoader({ params }) {
+export async function rootLoader({ params }) {
   const { id } = params
-  const numberId = Number(id)
-  const newMockStore = new MockStore(numberId)
+  const newApiStore = new ApiStore(id)
+  const newMockStore = new MockStore(Number(id))
+  await newApiStore.initialize()
 
-  if (newMockStore.isUserValid) {
-    const newFormat = new Format(numberId)
-    return {
-      keyData: newMockStore.main.keyData,
-      firstName: newMockStore.main.userInfos.firstName,
-      score: newMockStore.main.score ?? newMockStore.main.todayScore,
-      performance: newFormat.performance,
-      weekSessions: newFormat.weekSessions,
-      activity: newFormat.activity,
-    }
-  } else {
+  if (!newApiStore.userIsValid && !newMockStore.userIsValid) {
     throw new Response(`Loader error: user with id ${id} does not exist`, {
       status: 404,
     })
-  }
+  } else if (newApiStore.userIsValid) return newApiStore
+  else if (newMockStore.userIsValid) return newMockStore
 }

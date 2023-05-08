@@ -1,11 +1,8 @@
-import MockStore from '../services/mock-store'
-
 export default class Format {
-  constructor(id) {
-    const newMockStore = new MockStore(id)
-    this._performance = newMockStore.performance
-    this._weekSessions = newMockStore.weekSessions
-    this._activity = newMockStore.activity
+  constructor(raw_performance, raw_averageSessions, raw_activity) {
+    this.raw_performance = raw_performance
+    this.raw_averageSessions = raw_averageSessions
+    this.raw_activity = raw_activity
   }
 
   get performance() {
@@ -17,7 +14,7 @@ export default class Format {
       5: 'Vitesse',
       6: 'Intensité',
     }
-    const { data } = this._performance
+    const { data } = this.raw_performance
 
     data.map((el) => {
       return (el.type = newKind[el.kind])
@@ -26,7 +23,7 @@ export default class Format {
     return [...data].reverse()
   }
 
-  get weekSessions() {
+  get averageSessions() {
     const days = {
       0: '',
       1: 'L',
@@ -37,7 +34,7 @@ export default class Format {
       6: 'S',
       7: 'D',
     }
-    let { sessions } = this._weekSessions
+    let { sessions } = this.raw_averageSessions
 
     sessions = [
       { day: 0, sessionLength: sessions[0].sessionLength },
@@ -53,7 +50,7 @@ export default class Format {
   }
 
   get activity() {
-    const { sessions } = this._activity
+    const { sessions } = this.raw_activity
 
     sessions.map((el) => {
       const dayString = el.day.split('-')[2]
