@@ -29,14 +29,11 @@ export default function ScoreChart({ data }) {
     <div className="score-chart">
       <h2 className="score-chart__title">Score</h2>
       <ResponsiveContainer>
-        <PieChart width={220} height={220} wrapperStyle={{ outline: 'none' }}>
+        <PieChart wrapperStyle={{ outline: 'none' }}>
           <Legend
-            width={58}
-            height={82}
-            layout="vertical"
             verticalAlign="middle"
             content={<ScoreChartLegend score={scoreAsPercent} />}
-            wrapperStyle={{ outline: 'none' }}
+            wrapperStyle={{ outline: 'none', top: 105 }}
           />
           <Pie
             data={data1}

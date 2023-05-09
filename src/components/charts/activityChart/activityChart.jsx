@@ -16,7 +16,7 @@ export default function ActivityChart({ data }) {
   console.log('ActivityChart data', data)
   const axisStyle = {
     fill: '#9B9EAC',
-    fontSize: '15px',
+    fontSize: '14px',
   }
 
   return (

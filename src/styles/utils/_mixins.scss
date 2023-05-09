@@ -1,0 +1,7 @@
+@mixin chart($position, $colour) {
+  position: $position;
+  width: 258px;
+  height: 263px;
+  background: $colour;
+  border-radius: 5px;
+}

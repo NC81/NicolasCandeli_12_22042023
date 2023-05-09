@@ -17,25 +17,21 @@ export default function SessionsChart({ data }) {
       <h2 className="sessions-chart__title">Durée moyenne des sessions</h2>
       <ResponsiveContainer>
         <LineChart
-          width={258}
-          height={263}
           data={data}
           margin={{
-            top: 5,
             right: -20,
             left: -20,
-            bottom: 5,
+            bottom: 10,
           }}
         >
           <XAxis
             dataKey="dayLetter"
             style={{
               fontSize: '12px',
-              fill: 'rgba(255, 255, 255, 0.6)',
+              fill: 'rgba(255, 255, 255, 0.5)',
             }}
             axisLine={false}
             tickLine={false}
-            // tickMargin={25}
           ></XAxis>
           <YAxis hide domain={[-20, 150]}></YAxis>
           <Tooltip

@@ -30,8 +30,8 @@ export default class ApiStore {
 
   static async fetchData(id, path) {
     try {
-      const newFetch = await fetch(`http://localhost:3000/user/${id}/${path}`)
-      var { data } = await newFetch.json()
+      const response = await fetch(`http://localhost:3000/user/${id}/${path}`)
+      var { data } = await response.json()
     } catch (err) {
       console.log(err)
     } finally {

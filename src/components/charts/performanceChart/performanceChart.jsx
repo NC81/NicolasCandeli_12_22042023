@@ -10,6 +10,8 @@ import {
 } from 'recharts'
 
 export default function PerformanceChart({ data }) {
+  console.log('PerformanceChart data', data)
+
   function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
     return (
       <Text
@@ -27,19 +29,11 @@ export default function PerformanceChart({ data }) {
   return (
     <div className="perf-chart">
       <ResponsiveContainer>
-        <RadarChart
-          cx={129}
-          cy={132}
-          outerRadius={90}
-          width={258}
-          height={263}
-          data={data}
-        >
+        <RadarChart outerRadius={90} data={data}>
           <PolarGrid radialLines={false} />
           <PolarAngleAxis
             dataKey="type"
             tick={(props) => renderPolarAngleAxis(props)}
-            // tick={{ fill: 'white', fontSize: 12 }}
           />
           <PolarRadiusAxis
             tick={false}
