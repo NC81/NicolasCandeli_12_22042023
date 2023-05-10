@@ -5,9 +5,9 @@ const mockData = require('../data/mock-global')
 export default class MockStore {
   constructor(id) {
     this.id = id
-    this.userIsValid = this.main ? true : false
+    this.isUserValid = this.main ? true : false
 
-    if (this.userIsValid) {
+    if (this.isUserValid) {
       this.firstName = this.main.userInfos.firstName
       this.score = this.main.todayScore ?? this.main.score
       this.raw_keyData = this.main.keyData

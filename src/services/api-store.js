@@ -7,9 +7,9 @@ export default class ApiStore {
 
   async initialize() {
     this.main = await this.constructor.fetchData(this.id, '')
-    this.userIsValid = this.main ? true : false
+    this.isUserValid = this.main ? true : false
     // prettier-ignore
-    if (this.userIsValid) {
+    if (this.isUserValid) {
       this.firstName = this.main.userInfos.firstName
       this.score = this.main.todayScore ?? this.main.score
       this.raw_activity = await this.constructor.fetchData(this.id, 'activity')

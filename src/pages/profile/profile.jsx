@@ -9,7 +9,7 @@ import ActivityChart from '../../components/charts/activityChart/activityChart'
 
 export default function Profile() {
   const data = useRouteLoaderData('root')
-  console.log('data', data)
+  console.log('Profile data', data)
   const { firstName, activity, averageSessions, performance, score, keyData } =
     data
 
@@ -49,10 +49,10 @@ export async function rootLoader({ params }) {
   const newMockStore = new MockStore(Number(id))
   await newApiStore.initialize()
 
-  if (!newApiStore.userIsValid && !newMockStore.userIsValid) {
+  if (!newApiStore.isUserValid && !newMockStore.isUserValid) {
     throw new Response(`Loader error: user with id ${id} does not exist`, {
       status: 404,
     })
-  } else if (newApiStore.userIsValid) return newApiStore
-  else if (newMockStore.userIsValid) return newMockStore
+  } else if (newApiStore.isUserValid) return newApiStore
+  else if (newMockStore.isUserValid) return newMockStore
 }

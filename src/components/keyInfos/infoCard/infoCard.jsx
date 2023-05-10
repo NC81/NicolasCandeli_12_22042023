@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export default function InfoCard({ cardData }) {
-  console.log('InfoCard data', cardData)
+  // console.log('InfoCard data', cardData)
   const { name, value, unit, color, icon, alt } = cardData
 
   return (
