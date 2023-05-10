@@ -101,15 +101,11 @@ export default function ActivityChart({ data }) {
 }
 
 ActivityChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      kilogram: PropTypes.number,
+      calories: PropTypes.number,
+      dayNumber: PropTypes.string,
+    })
+  ).isRequired,
 }
-
-// ActivityChart.propTypes = {
-//   data: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       kilogram: PropTypes.number.isRequired,
-//       calories: PropTypes.number.isRequired,
-//       dayNumber: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-// }

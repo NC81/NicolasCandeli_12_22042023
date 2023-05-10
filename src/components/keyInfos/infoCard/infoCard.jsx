@@ -24,16 +24,12 @@ export default function InfoCard({ cardData }) {
 }
 
 InfoCard.propTypes = {
-  cardData: PropTypes.object.isRequired,
+  cardData: PropTypes.exact({
+    name: PropTypes.string,
+    value: PropTypes.string,
+    unit: PropTypes.string,
+    color: PropTypes.string,
+    icon: PropTypes.string,
+    alt: PropTypes.string,
+  }).isRequired,
 }
-
-// InfoCard.propTypes = {
-//   cardData: PropTypes.exact({
-//     name: PropTypes.string.isRequired,
-//     value: PropTypes.string.isRequired,
-//     unit: PropTypes.string.isRequired,
-//     color: PropTypes.string.isRequired,
-//     icon: PropTypes.string.isRequired,
-//     alt: PropTypes.string.isRequired,
-//   }),
-// }

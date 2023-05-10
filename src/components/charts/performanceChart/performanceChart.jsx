@@ -49,14 +49,10 @@ export default function PerformanceChart({ data }) {
 }
 
 PerformanceChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number,
+      type: PropTypes.string,
+    })
+  ).isRequired,
 }
-
-// PerformanceChart.propTypes = {
-//   data: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       value: PropTypes.number.isRequired,
-//       type: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-// }

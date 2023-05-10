@@ -12,14 +12,10 @@ export default function KeyInfos({ data }) {
 }
 
 KeyInfos.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.exact({
+    calorieCount: PropTypes.object,
+    proteinCount: PropTypes.object,
+    carbohydrateCount: PropTypes.object,
+    lipidCount: PropTypes.object,
+  }).isRequired,
 }
-
-// KeyInfos.propTypes = {
-//   data: PropTypes.exact({
-//     calorieCount: PropTypes.object.isRequired,
-//     proteinCount: PropTypes.object.isRequired,
-//     carbohydrateCount: PropTypes.object.isRequired,
-//     lipidCount: PropTypes.object.isRequired,
-//   }),
-// }
