@@ -12,19 +12,21 @@ export default class ApiStore {
     if (this.userIsValid) {
       this.firstName = this.main.userInfos.firstName
       this.score = this.main.todayScore ?? this.main.score
-      this.keyData = this.main.keyData
-      this.raw_performance = await this.constructor.fetchData(this.id, 'performance')
-      this.raw_averageSessions = await this.constructor.fetchData(this.id, 'average-sessions')
       this.raw_activity = await this.constructor.fetchData(this.id, 'activity')
+      this.raw_averageSessions = await this.constructor.fetchData(this.id, 'average-sessions')
+      this.raw_performance = await this.constructor.fetchData(this.id, 'performance')
+      this.raw_keyData = this.main.keyData
 
       const newFormat = new Format(
-        this.raw_performance,
+        this.raw_activity,
         this.raw_averageSessions,
-        this.raw_activity
+        this.raw_performance,
+        this.raw_keyData
       )
-      this.performance = newFormat.performance
-      this.averageSessions = newFormat.averageSessions
       this.activity = newFormat.activity
+      this.averageSessions = newFormat.averageSessions
+      this.performance = newFormat.performance
+      this.keyData = newFormat.keyData
     }
   }
 

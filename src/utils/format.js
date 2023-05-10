@@ -1,26 +1,30 @@
+import energy from '../../src/assets/energy.svg'
+import chicken from '../../src/assets/chicken.svg'
+import apple from '../../src/assets/apple.svg'
+import cheeseburger from '../../src/assets/cheeseburger.svg'
+
 export default class Format {
-  constructor(raw_performance, raw_averageSessions, raw_activity) {
-    this.raw_performance = raw_performance
-    this.raw_averageSessions = raw_averageSessions
+  constructor(raw_activity, raw_averageSessions, raw_performance, raw_keyData) {
     this.raw_activity = raw_activity
+    this.raw_averageSessions = raw_averageSessions
+    this.raw_performance = raw_performance
+    this.raw_keyData = raw_keyData
   }
 
-  get performance() {
-    const newKind = {
-      1: 'Cardio',
-      2: 'Energie',
-      3: 'Endurance',
-      4: 'Force',
-      5: 'Vitesse',
-      6: 'Intensité',
-    }
-    const { data } = this.raw_performance
+  get activity() {
+    const { sessions } = this.raw_activity
 
-    data.map((el) => {
-      return (el.type = newKind[el.kind])
+    sessions.map((el) => {
+      const dayString = el.day.split('-')[2]
+      const dayCharactersArray = dayString.split('')
+
+      return (el.dayNumber =
+        dayCharactersArray[0] === '0'
+          ? el.day.split('-')[2].replace('0', '')
+          : el.day.split('-')[2])
     })
 
-    return [...data].reverse()
+    return sessions
   }
 
   get averageSessions() {
@@ -49,19 +53,64 @@ export default class Format {
     return sessions
   }
 
-  get activity() {
-    const { sessions } = this.raw_activity
+  get performance() {
+    const newKind = {
+      cardio: 'Cardio',
+      energy: 'Energie',
+      endurance: 'Endurance',
+      strength: 'Force',
+      speed: 'Vitesse',
+      intensity: 'Intensité',
+    }
+    const { data } = this.raw_performance
+    const { kind } = this.raw_performance
 
-    sessions.map((el) => {
-      const dayString = el.day.split('-')[2]
-      const dayCharactersArray = dayString.split('')
-
-      return (el.dayNumber =
-        dayCharactersArray[0] === '0'
-          ? el.day.split('-')[2].replace('0', '')
-          : el.day.split('-')[2])
+    data.map((el) => {
+      return (el.type = newKind[kind[el.kind]])
     })
 
-    return sessions
+    const newData = [...data].reverse()
+
+    return newData
+  }
+
+  get keyData() {
+    let { calorieCount, proteinCount, carbohydrateCount, lipidCount } =
+      this.raw_keyData
+
+    calorieCount = {
+      name: 'Calories',
+      value: calorieCount.toLocaleString('en-US'),
+      unit: 'kCal',
+      color: 'rgba(255, 0, 0, 0.07)',
+      icon: `${energy}`,
+      alt: 'Flamme',
+    }
+    proteinCount = {
+      name: 'Protéines',
+      value: proteinCount.toLocaleString('en-US'),
+      unit: 'g',
+      color: 'rgba(74, 184, 255, 0.1)',
+      icon: `${chicken}`,
+      alt: 'Poulet',
+    }
+    carbohydrateCount = {
+      name: 'Glucides',
+      value: carbohydrateCount.toLocaleString('en-US'),
+      unit: 'g',
+      color: 'rgba(249, 206, 35, 0.1)',
+      icon: `${apple}`,
+      alt: 'Pomme',
+    }
+    lipidCount = {
+      name: 'Lipides',
+      value: lipidCount.toLocaleString('en-US'),
+      unit: 'g',
+      color: 'rgba(253, 81, 129, 0.1)',
+      icon: `${cheeseburger}`,
+      alt: 'Burger',
+    }
+
+    return { calorieCount, proteinCount, carbohydrateCount, lipidCount }
   }
 }

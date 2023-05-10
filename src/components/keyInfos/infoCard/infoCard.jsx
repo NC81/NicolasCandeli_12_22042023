@@ -1,61 +1,8 @@
 import PropTypes from 'prop-types'
-import energy from '../../../assets/energy.svg'
-import chicken from '../../../assets/chicken.svg'
-import apple from '../../../assets/apple.svg'
-import cheeseburger from '../../../assets/cheeseburger.svg'
 
-export default function InfoCard({ el, value }) {
-  function createCardDetails(prop) {
-    switch (prop) {
-      case 'calorieCount':
-        return {
-          name: 'Calories',
-          unit: 'kCal',
-          color: 'rgba(255, 0, 0, 0.07)',
-          icon: `${energy}`,
-          alt: 'Flamme',
-        }
-      case 'proteinCount':
-        return {
-          name: 'Protéines',
-          unit: 'g',
-          color: 'rgba(74, 184, 255, 0.1)',
-          icon: `${chicken}`,
-          alt: 'Poulet',
-        }
-      case 'carbohydrateCount':
-        return {
-          name: 'Glucides',
-          unit: 'g',
-          color: 'rgba(249, 206, 35, 0.1)',
-          icon: `${apple}`,
-          alt: 'Pomme',
-        }
-      case 'lipidCount':
-        return {
-          name: 'Lipides',
-          unit: 'g',
-          color: 'rgba(253, 81, 129, 0.1)',
-          icon: `${cheeseburger}`,
-          alt: 'Burger',
-        }
-      default:
-        return {
-          name: 'Calories',
-          unit: 'kCal',
-          color: 'rgba(255, 0, 0, 0.07)',
-          icon: `${energy}`,
-          alt: 'Flamme',
-        }
-    }
-  }
-
-  const formatValue = value.toLocaleString('en-US')
-  const { name } = createCardDetails(el)
-  const { unit } = createCardDetails(el)
-  const { color } = createCardDetails(el)
-  const { icon } = createCardDetails(el)
-  const { alt } = createCardDetails(el)
+export default function InfoCard({ cardData }) {
+  console.log('InfoCard data', cardData)
+  const { name, value, unit, color, icon, alt } = cardData
 
   return (
     <div className="info-card">
@@ -67,7 +14,7 @@ export default function InfoCard({ el, value }) {
       </div>
       <div className="info-card__details">
         <p>
-          {formatValue}
+          {value}
           {unit}
         </p>
         <p>{name}</p>
@@ -77,6 +24,16 @@ export default function InfoCard({ el, value }) {
 }
 
 InfoCard.propTypes = {
-  el: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  cardData: PropTypes.object.isRequired,
 }
+
+// InfoCard.propTypes = {
+//   cardData: PropTypes.exact({
+//     name: PropTypes.string.isRequired,
+//     value: PropTypes.string.isRequired,
+//     unit: PropTypes.string.isRequired,
+//     color: PropTypes.string.isRequired,
+//     icon: PropTypes.string.isRequired,
+//     alt: PropTypes.string.isRequired,
+//   }),
+// }

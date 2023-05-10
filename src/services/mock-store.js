@@ -9,17 +9,19 @@ export default class MockStore {
 
     if (this.userIsValid) {
       this.firstName = this.main.userInfos.firstName
-      this.keyData = this.main.keyData
       this.score = this.main.todayScore ?? this.main.score
+      this.raw_keyData = this.main.keyData
 
       const newFormat = new Format(
-        this.raw_performance,
+        this.raw_activity,
         this.raw_averageSessions,
-        this.raw_activity
+        this.raw_performance,
+        this.raw_keyData
       )
-      this.performance = newFormat.performance
-      this.averageSessions = newFormat.averageSessions
       this.activity = newFormat.activity
+      this.averageSessions = newFormat.averageSessions
+      this.performance = newFormat.performance
+      this.keyData = newFormat.keyData
     }
   }
 

@@ -5,12 +5,21 @@ export default function KeyInfos({ data }) {
   return (
     <div className="key-infos">
       {Object.keys(data).map((el, value) => {
-        return <InfoCard key={`${el}-${value}`} el={el} value={data[el]} />
+        return <InfoCard key={`${el}-${value}`} cardData={data[el]} />
       })}
     </div>
   )
 }
 
 KeyInfos.propTypes = {
-  data: PropTypes.objectOf(PropTypes.number).isRequired,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 }
+
+// KeyInfos.propTypes = {
+//   data: PropTypes.exact({
+//     calorieCount: PropTypes.object.isRequired,
+//     proteinCount: PropTypes.object.isRequired,
+//     carbohydrateCount: PropTypes.object.isRequired,
+//     lipidCount: PropTypes.object.isRequired,
+//   }),
+// }
