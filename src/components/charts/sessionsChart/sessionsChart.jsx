@@ -22,6 +22,20 @@ export default function SessionsChart({ data }) {
     // console.log('handleMouseOver', e)
   }
 
+  function CustomActiveDot(props) {
+    const { cx, cy } = props
+    return (
+      <circle
+        cx={cx}
+        cy={cy}
+        r={4}
+        stroke="rgba(255, 255, 255, 0.2)"
+        strokeWidth={10}
+        fill="white"
+      />
+    )
+  }
+
   return (
     <div className="sessions-chart">
       <h2 className="sessions-chart__title">Durée moyenne des sessions</h2>
@@ -43,10 +57,9 @@ export default function SessionsChart({ data }) {
           {isTooltipActive ? (
             <ReferenceArea
               x1={TooltipIndex}
-              y1={-55}
+              y1={-46}
               ifOverflow="visible"
               fill="rgba(0, 0, 0, 0.15)"
-              wrapperStyle={{ radius: '5px' }}
             />
           ) : null}
           <XAxis
@@ -58,7 +71,7 @@ export default function SessionsChart({ data }) {
             axisLine={false}
             tickLine={false}
           ></XAxis>
-          <YAxis hide domain={[-20, 150]}></YAxis>
+          <YAxis hide domain={['dataMin - 20', 'dataMax + 60']} />
           <Tooltip
             content={<SessionsChartTooltip />}
             wrapperStyle={{ outline: 'none' }}
@@ -67,7 +80,7 @@ export default function SessionsChart({ data }) {
           <defs>
             <linearGradient id="color-line">
               <stop stopColor="rgba(255,255,255, 0.3)" />
-              <stop offset={`${100}%`} stopColor="white" />
+              <stop offset={'100%'} stopColor="white" />
             </linearGradient>
           </defs>
           <Line
@@ -76,6 +89,7 @@ export default function SessionsChart({ data }) {
             stroke="url(#color-line)"
             strokeWidth={2}
             dot={false}
+            activeDot={<CustomActiveDot />}
             animationDuration={500}
           />
         </LineChart>
