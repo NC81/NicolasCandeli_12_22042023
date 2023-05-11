@@ -35,13 +35,8 @@ export default function PerformanceChart({ data }) {
             dataKey="type"
             tick={(props) => renderPolarAngleAxis(props)}
           />
-          <PolarRadiusAxis
-            tick={false}
-            axisLine={false}
-            tickCount={6}
-            // domain={[0, 250]}
-          />
-          <Radar name="Mike" dataKey="value" fill="#FF0101" fillOpacity={0.7} />
+          <PolarRadiusAxis tick={false} axisLine={false} tickCount={6} />
+          <Radar name="Mike" dataKey="value" fill="rgba(255, 1, 1, 0.7)" />
         </RadarChart>
       </ResponsiveContainer>
     </div>

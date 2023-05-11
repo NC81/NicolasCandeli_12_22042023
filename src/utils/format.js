@@ -18,7 +18,7 @@ export default class Format {
       const dayString = el.day.split('-')[2]
       const dayCharactersArray = dayString.split('')
 
-      return (el.dayNumber =
+      return (el.dayStringNumber =
         dayCharactersArray[0] === '0'
           ? el.day.split('-')[2].replace('0', '')
           : el.day.split('-')[2])

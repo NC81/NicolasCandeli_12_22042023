@@ -25,11 +25,11 @@ export default function ActivityChart({ data }) {
       <ResponsiveContainer>
         <BarChart
           data={data}
+          height={100}
           margin={{
             top: 112,
-            right: 40,
-            left: 0,
-            bottom: 0,
+            right: 38,
+            bottom: 8,
           }}
           barGap={8}
         >
@@ -41,13 +41,13 @@ export default function ActivityChart({ data }) {
           />
           <CartesianGrid
             strokeDasharray="2 2"
-            stroke="#DEDEDE"
+            stroke="rgb(222, 222, 222)"
             vertical={false}
           />
           <XAxis
-            dataKey="dayNumber"
+            dataKey="dayStringNumber"
             tickMargin={16}
-            stroke="#DEDEDE"
+            stroke="rgb(222, 222, 222)"
             tickLine={false}
             padding={{ left: -45, right: -45 }}
             style={axisStyle}
@@ -70,27 +70,27 @@ export default function ActivityChart({ data }) {
             dataKey="calories"
             orientation="left"
             yAxisId="left"
-            domain={[0, 'dataMax + 50']}
+            domain={[0, 'dataMax + 60']}
             axisLine={false}
             tickLine={false}
             tick={false}
           />
           <Tooltip
-            cursor={{ fill: '#C4C4C480' }}
+            cursor={{ fill: 'rgba(196, 196, 196, 0.5)' }}
             content={<ActivityChartTooltip />}
             wrapperStyle={{ outline: 'none' }}
           />
           <Bar
             yAxisId="right"
             dataKey="kilogram"
-            fill="#282D30"
+            fill="rgb(40, 45, 48)"
             barSize={7}
             radius={[3, 3, 0, 0]}
           />
           <Bar
             yAxisId="left"
             dataKey="calories"
-            fill="#E60000"
+            fill="rgb(230, 0, 0)"
             barSize={7}
             radius={[3, 3, 0, 0]}
           />
@@ -105,7 +105,7 @@ ActivityChart.propTypes = {
     PropTypes.shape({
       kilogram: PropTypes.number,
       calories: PropTypes.number,
-      dayNumber: PropTypes.string,
+      dayStringNumber: PropTypes.string,
     })
   ).isRequired,
 }

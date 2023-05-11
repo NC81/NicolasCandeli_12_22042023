@@ -5,18 +5,18 @@ import ScoreChartLegend from './legend/scoreChartLegend'
 export default function ScoreChart({ data }) {
   const scoreAsPercent = data * 100
   const restAsPercent = 100 - scoreAsPercent
-  const data1 = [
+  const emptyData = [
     {
       name: 'Center',
       value: 1,
       fill: 'white',
     },
   ]
-  const data2 = [
+  const trueData = [
     {
       name: 'Score',
       value: scoreAsPercent,
-      fill: '#ff0000',
+      fill: 'red',
     },
     {
       name: 'Rest',
@@ -33,26 +33,21 @@ export default function ScoreChart({ data }) {
           <Legend
             verticalAlign="middle"
             content={<ScoreChartLegend score={scoreAsPercent} />}
-            wrapperStyle={{ outline: 'none', top: 105 }}
+            wrapperStyle={{ top: 105 }}
           />
           <Pie
-            data={data1}
+            data={emptyData}
             dataKey="value"
-            cx="50%"
-            cy="50%"
             outerRadius={80}
             isAnimationActive={false}
-            wrapperStyle={{ outline: 'none' }}
           ></Pie>
           <Pie
-            data={data2}
+            data={trueData}
             dataKey="value"
-            cx="50%"
-            cy="50%"
             innerRadius={80}
             outerRadius={90}
-            startAngle={200}
-            endAngle={-160}
+            startAngle={210}
+            endAngle={-150}
             cornerRadius={5}
             stroke="transparent"
           ></Pie>
