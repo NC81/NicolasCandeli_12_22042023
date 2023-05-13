@@ -1,6 +1,7 @@
 import { useRouteLoaderData } from 'react-router-dom'
-import ApiStore from '../../services/api-store'
-import MockStore from '../../services/mock-store'
+import ApiStore from '../../services/stores/api-store'
+import MockStore from '../../services/stores/mock-store'
+import User from '../../services/user/user'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import ScoreChart from '../../components/charts/scoreChart/scoreChart'
 import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
@@ -45,14 +46,22 @@ export default function Profile() {
 
 export async function rootLoader({ params }) {
   const { id } = params
-  const newApiStore = new ApiStore(id)
   const newMockStore = new MockStore(Number(id))
-  await newApiStore.initialize()
+  const newApiStore = await new ApiStore(id).initialize()
+  // console.log('newMockStore', newMockStore)
+  // console.log('newApiStore', newApiStore)
 
-  if (!newApiStore.isUserValid && !newMockStore.isUserValid) {
+  if (newMockStore.length === 0 && newApiStore.length === 0) {
     throw new Response(`Loader error: user with id ${id} does not exist`, {
       status: 404,
     })
-  } else if (newApiStore.isUserValid) return newApiStore
-  else if (newMockStore.isUserValid) return newMockStore
+  } else if (newApiStore.length === 4) {
+    console.log('newApiUser')
+    const newApiUser = new User(...newApiStore)
+    return newApiUser
+  } else if (newMockStore.length === 4) {
+    console.log('newMockUser')
+    const newMockUser = new User(...newMockStore)
+    return newMockUser
+  }
 }

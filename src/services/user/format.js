@@ -1,7 +1,7 @@
-import energy from '../../src/assets/energy.svg'
-import chicken from '../../src/assets/chicken.svg'
-import apple from '../../src/assets/apple.svg'
-import cheeseburger from '../../src/assets/cheeseburger.svg'
+import energy from '../../assets/energy.svg'
+import chicken from '../../assets/chicken.svg'
+import apple from '../../assets/apple.svg'
+import cheeseburger from '../../assets/cheeseburger.svg'
 
 export default class Format {
   constructor(raw_activity, raw_averageSessions, raw_performance, raw_keyData) {

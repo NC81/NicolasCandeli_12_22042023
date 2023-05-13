@@ -10,7 +10,7 @@ import {
 } from 'recharts'
 
 export default function PerformanceChart({ data }) {
-  console.log('PerformanceChart data', data)
+  // console.log('PerformanceChart data', data)
 
   function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
     return (
