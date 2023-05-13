@@ -14,17 +14,19 @@ export default class Format {
   get activity() {
     const { sessions } = this.raw_activity
 
-    sessions.map((el) => {
+    const newSessions = sessions.map((el) => {
       const dayString = el.day.split('-')[2]
       const dayCharactersArray = dayString.split('')
-
-      return (el.dayStringNumber =
-        dayCharactersArray[0] === '0'
-          ? el.day.split('-')[2].replace('0', '')
-          : el.day.split('-')[2])
+      return {
+        ...el,
+        dayStringNumber:
+          dayCharactersArray[0] === '0'
+            ? el.day.split('-')[2].replace('0', '')
+            : el.day.split('-')[2],
+      }
     })
 
-    return sessions
+    return newSessions
   }
 
   get averageSessions() {
@@ -38,19 +40,19 @@ export default class Format {
       6: 'S',
       7: 'D',
     }
-    let { sessions } = this.raw_averageSessions
+    const { sessions } = this.raw_averageSessions
 
-    sessions = [
+    let newSessions = [
       { day: 0, sessionLength: sessions[0].sessionLength },
       ...sessions,
       { day: 0, sessionLength: sessions[6].sessionLength },
     ]
 
-    sessions.map((el) => {
-      return (el.dayLetter = days[el.day])
+    newSessions = newSessions.map((el) => {
+      return { ...el, dayLetter: days[el.day] }
     })
 
-    return sessions
+    return newSessions
   }
 
   get performance() {
@@ -65,13 +67,11 @@ export default class Format {
     const { data } = this.raw_performance
     const { kind } = this.raw_performance
 
-    data.map((el) => {
-      return (el.type = newKind[kind[el.kind]])
+    const newData = data.map((el) => {
+      return { ...el, type: newKind[kind[el.kind]] }
     })
 
-    const newData = [...data].reverse()
-
-    return newData
+    return newData.reverse()
   }
 
   get keyData() {
