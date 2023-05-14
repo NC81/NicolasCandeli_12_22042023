@@ -3,12 +3,14 @@ import chicken from '../../assets/chicken.svg'
 import apple from '../../assets/apple.svg'
 import cheeseburger from '../../assets/cheeseburger.svg'
 
-export default class Format {
-  constructor(raw_activity, raw_averageSessions, raw_performance, raw_keyData) {
+export default class User {
+  constructor(raw_main, raw_activity, raw_averageSessions, raw_performance) {
+    this.raw_main = raw_main
     this.raw_activity = raw_activity
     this.raw_averageSessions = raw_averageSessions
     this.raw_performance = raw_performance
-    this.raw_keyData = raw_keyData
+    this.firstName = raw_main.userInfos.firstName
+    this.score = raw_main.todayScore ?? this.raw_main.score
   }
 
   get activity() {
@@ -75,8 +77,8 @@ export default class Format {
   }
 
   get keyData() {
-    let { calorieCount, proteinCount, carbohydrateCount, lipidCount } =
-      this.raw_keyData
+    const { keyData } = this.raw_main
+    let { calorieCount, proteinCount, carbohydrateCount, lipidCount } = keyData
 
     calorieCount = {
       name: 'Calories',

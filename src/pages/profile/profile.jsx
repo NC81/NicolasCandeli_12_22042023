@@ -1,7 +1,7 @@
-import { useRouteLoaderData } from 'react-router-dom'
-import ApiStore from '../../services/stores/api-store'
-import MockStore from '../../services/stores/mock-store'
-import User from '../../services/user/user'
+import { useLoaderData } from 'react-router-dom'
+import ApiStore from '../../services/api-store'
+import MockStore from '../../services/mock-store'
+import User from './user-profile'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import ScoreChart from '../../components/charts/scoreChart/scoreChart'
 import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
@@ -9,7 +9,7 @@ import SessionsChart from '../../components/charts/sessionsChart/sessionsChart'
 import ActivityChart from '../../components/charts/activityChart/activityChart'
 
 export default function Profile() {
-  const data = useRouteLoaderData('root')
+  const data = useLoaderData()
   console.log('Profile data', data)
   const { firstName, activity, averageSessions, performance, score, keyData } =
     data
@@ -44,7 +44,7 @@ export default function Profile() {
   )
 }
 
-export async function rootLoader({ params }) {
+export async function profileLoader({ params }) {
   const { id } = params
   const newMockStore = new MockStore(Number(id))
   const newApiStore = await new ApiStore(id).initialize()
