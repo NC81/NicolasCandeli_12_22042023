@@ -1,0 +1,15 @@
+.error-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  h1 {
+    font-size: 96px;
+    line-height: 128px;
+    color: red;
+  }
+  p {
+    font-size: 24px;
+  }
+}
