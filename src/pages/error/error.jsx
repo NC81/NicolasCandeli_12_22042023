@@ -14,7 +14,7 @@ export default function Error() {
         <div className="error-wrapper">
           <h1>{error.status}</h1>
           <p>Désolé, une erreur inattendue est survenue.</p>
-        </div>{' '}
+        </div>
       </div>
     </>
   )

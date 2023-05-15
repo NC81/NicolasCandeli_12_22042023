@@ -5,22 +5,24 @@ export default class ApiStore {
 
   async initialize() {
     this.raw_main = await this.fetchData('')
-    this.raw_activity = await this.fetchData('activity')
-    this.raw_averageSessions = await this.fetchData('average-sessions')
-    this.raw_performance = await this.fetchData('performance')
-    if (
-      this.raw_main &&
-      this.raw_activity &&
-      this.raw_averageSessions &&
-      this.raw_performance
-    ) {
-      return [
-        this.raw_main,
-        this.raw_activity,
-        this.raw_averageSessions,
-        this.raw_performance,
-      ]
+    if (this.raw_main) {
+      this.raw_activity = await this.fetchData('activity')
+      this.raw_averageSessions = await this.fetchData('average-sessions')
+      this.raw_performance = await this.fetchData('performance')
+      if (
+        this.raw_activity &&
+        this.raw_averageSessions &&
+        this.raw_performance
+      ) {
+        return [
+          this.raw_main,
+          this.raw_activity,
+          this.raw_averageSessions,
+          this.raw_performance,
+        ]
+      }
     }
+    console.log('[]')
     return []
   }
 

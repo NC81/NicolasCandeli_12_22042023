@@ -4,21 +4,22 @@ export default class MockStore {
   constructor(id) {
     this.id = id
     this.raw_main = this.findData(mockData.USER_MAIN_DATA)
-    this.raw_activity = this.findData(mockData.USER_ACTIVITY)
-    this.raw_averageSessions = this.findData(mockData.USER_AVERAGE_SESSIONS)
-    this.raw_performance = this.findData(mockData.USER_PERFORMANCE)
-    if (
-      this.raw_main &&
-      this.raw_activity &&
-      this.raw_averageSessions &&
-      this.raw_performance
-    ) {
-      return [
-        this.raw_main,
-        this.raw_activity,
-        this.raw_averageSessions,
-        this.raw_performance,
-      ]
+    if (this.raw_main) {
+      this.raw_activity = this.findData(mockData.USER_ACTIVITY)
+      this.raw_averageSessions = this.findData(mockData.USER_AVERAGE_SESSIONS)
+      this.raw_performance = this.findData(mockData.USER_PERFORMANCE)
+      if (
+        this.raw_activity &&
+        this.raw_averageSessions &&
+        this.raw_performance
+      ) {
+        return [
+          this.raw_main,
+          this.raw_activity,
+          this.raw_averageSessions,
+          this.raw_performance,
+        ]
+      }
     }
     return []
   }
