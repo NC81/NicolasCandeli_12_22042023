@@ -1,19 +1,23 @@
-import energy from '../../assets/energy.svg'
-import chicken from '../../assets/chicken.svg'
-import apple from '../../assets/apple.svg'
-import cheeseburger from '../../assets/cheeseburger.svg'
+import energy from '../assets/energy.svg'
+import chicken from '../assets/chicken.svg'
+import apple from '../assets/apple.svg'
+import cheeseburger from '../assets/cheeseburger.svg'
 
 export default class User {
-  constructor(raw_main, raw_activity, raw_averageSessions, raw_performance) {
-    this.raw_main = raw_main
-    this.raw_activity = raw_activity
-    this.raw_averageSessions = raw_averageSessions
-    this.raw_performance = raw_performance
-    this.firstName = raw_main.userInfos.firstName
-    this.score = raw_main.todayScore ?? this.raw_main.score
+  constructor(object) {
+    this.raw_main = object.raw_main
+    this.raw_activity = object.raw_activity
+    this.raw_averageSessions = object.raw_averageSessions
+    this.raw_performance = object.raw_performance
+    this.firstName = this.raw_main.userInfos.firstName
+    this.score = this.raw_main.todayScore ?? this.raw_main.score
   }
 
   get activity() {
+    if (!this.raw_activity) {
+      return undefined
+    }
+
     const { sessions } = this.raw_activity
 
     const newSessions = sessions.map((el) => {
@@ -32,6 +36,10 @@ export default class User {
   }
 
   get averageSessions() {
+    if (!this.raw_averageSessions) {
+      return undefined
+    }
+
     const days = {
       0: '',
       1: 'L',
@@ -58,6 +66,10 @@ export default class User {
   }
 
   get performance() {
+    if (!this.raw_performance) {
+      return undefined
+    }
+
     const newKind = {
       cardio: 'Cardio',
       energy: 'Energie',
@@ -77,12 +89,16 @@ export default class User {
   }
 
   get keyData() {
+    if (!this.raw_main.keyData) {
+      return undefined
+    }
+
     const { keyData } = this.raw_main
     let { calorieCount, proteinCount, carbohydrateCount, lipidCount } = keyData
 
     calorieCount = {
       name: 'Calories',
-      value: calorieCount.toLocaleString('en-US'),
+      value: calorieCount ? calorieCount.toLocaleString('en-US') : undefined,
       unit: 'kCal',
       color: 'rgba(255, 0, 0, 0.07)',
       icon: `${energy}`,
@@ -90,15 +106,16 @@ export default class User {
     }
     proteinCount = {
       name: 'Protéines',
-      value: proteinCount.toLocaleString('en-US'),
+      value: proteinCount ? proteinCount.toLocaleString('en-US') : undefined,
       unit: 'g',
       color: 'rgba(74, 184, 255, 0.1)',
       icon: `${chicken}`,
       alt: 'Poulet',
     }
+    // prettier-ignore
     carbohydrateCount = {
       name: 'Glucides',
-      value: carbohydrateCount.toLocaleString('en-US'),
+      value: carbohydrateCount ? carbohydrateCount.toLocaleString('en-US') : undefined,
       unit: 'g',
       color: 'rgba(249, 206, 35, 0.1)',
       icon: `${apple}`,
@@ -106,7 +123,7 @@ export default class User {
     }
     lipidCount = {
       name: 'Lipides',
-      value: lipidCount.toLocaleString('en-US'),
+      value: lipidCount ? lipidCount.toLocaleString('en-US') : undefined,
       unit: 'g',
       color: 'rgba(253, 81, 129, 0.1)',
       icon: `${cheeseburger}`,

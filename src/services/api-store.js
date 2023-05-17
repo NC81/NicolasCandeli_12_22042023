@@ -1,29 +1,26 @@
 export default class ApiStore {
   constructor(id) {
     this.id = id
+    this.data = {}
   }
 
   async initialize() {
-    this.raw_main = await this.fetchData('')
-    if (this.raw_main) {
-      this.raw_activity = await this.fetchData('activity')
-      this.raw_averageSessions = await this.fetchData('average-sessions')
-      this.raw_performance = await this.fetchData('performance')
-      if (
-        this.raw_activity &&
-        this.raw_averageSessions &&
-        this.raw_performance
-      ) {
-        return [
-          this.raw_main,
-          this.raw_activity,
-          this.raw_averageSessions,
-          this.raw_performance,
-        ]
+    const builder = [
+      ['', 'raw_main'],
+      ['activity', 'raw_activity'],
+      ['average-sessions', 'raw_averageSessions'],
+      ['performance', 'raw_performance'],
+    ]
+
+    for (const [resource, property] of builder) {
+      const response = await this.fetchData(resource)
+      if (property === 'raw_main' && response instanceof Response) {
+        this.error = response
+        break
+      } else if (!(response instanceof Response)) {
+        this.data[property] = response
       }
     }
-    console.log('[]')
-    return []
   }
 
   async fetchData(resource) {
@@ -35,12 +32,17 @@ export default class ApiStore {
       if (response.ok) {
         return data
       } else {
-        throw new Response('Fetch error: the response was not successful', {
-          status: 404,
-        })
+        throw response
       }
     } catch (err) {
-      console.error(err)
+      if (err instanceof Response) {
+        return err
+      } else {
+        return new Response('Test', {
+          status: 404,
+          statusText: 'Service Unavailable',
+        })
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import NoDataText from '../../noDataText/noDataText'
 import {
   Radar,
   RadarChart,
@@ -28,17 +29,23 @@ export default function PerformanceChart({ data }) {
   }
   return (
     <div className="perf-chart">
-      <ResponsiveContainer>
-        <RadarChart outerRadius={90} data={data}>
-          <PolarGrid radialLines={false} />
-          <PolarAngleAxis
-            dataKey="type"
-            tick={(props) => renderPolarAngleAxis(props)}
-          />
-          <PolarRadiusAxis tick={false} axisLine={false} tickCount={6} />
-          <Radar name="Mike" dataKey="value" fill="rgba(255, 1, 1, 0.7)" />
-        </RadarChart>
-      </ResponsiveContainer>
+      {!data ? (
+        <NoDataText chart={'performance'} title={'Type d’activité'} />
+      ) : (
+        <>
+          <ResponsiveContainer>
+            <RadarChart outerRadius={90} data={data}>
+              <PolarGrid radialLines={false} />
+              <PolarAngleAxis
+                dataKey="type"
+                tick={(props) => renderPolarAngleAxis(props)}
+              />
+              <PolarRadiusAxis tick={false} axisLine={false} tickCount={6} />
+              <Radar name="Mike" dataKey="value" fill="rgba(255, 1, 1, 0.7)" />
+            </RadarChart>
+          </ResponsiveContainer>
+        </>
+      )}
     </div>
   )
 }

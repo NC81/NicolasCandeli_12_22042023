@@ -1,3 +1,3 @@
 .perf-chart {
-  @include chart(static, $color-tertiary);
+  @include chart($color-tertiary);
 }

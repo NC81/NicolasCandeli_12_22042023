@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom'
-import ApiStore from '../../services/api-store'
 import MockStore from '../../services/mock-store'
-import User from './user-profile'
+import ApiStore from '../../services/api-store'
+import User from '../../models/user'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import ScoreChart from '../../components/charts/scoreChart/scoreChart'
 import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
@@ -11,8 +11,6 @@ import ActivityChart from '../../components/charts/activityChart/activityChart'
 export default function Profile() {
   const data = useLoaderData()
   console.log('Profile data', data)
-  const { firstName, activity, averageSessions, performance, score, keyData } =
-    data
 
   return (
     <div className="dash-wrapper">
@@ -21,7 +19,7 @@ export default function Profile() {
           <h1 className="dash-header-title-greetings">
             Bonjour{' '}
             <span className="dash-header-title-greetings__name">
-              {firstName}
+              {data.firstName}
             </span>
           </h1>
           <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
@@ -31,37 +29,42 @@ export default function Profile() {
 
       <main>
         <div className="dash-charts">
-          <ActivityChart data={activity} />
+          <ActivityChart data={data.activity} />
           <div className="dash-charts__group">
-            <SessionsChart data={averageSessions} />
-            <PerformanceChart data={performance} />
-            <ScoreChart data={score} />
+            <SessionsChart data={data.averageSessions} />
+            <PerformanceChart data={data.performance} />
+            <ScoreChart data={data.score} />
           </div>
         </div>
-        <KeyInfos data={keyData} />
+        <KeyInfos data={data.keyData} />
       </main>
     </div>
   )
 }
 
 export async function profileLoader({ params }) {
+  console.time('loader')
   const { id } = params
   const newMockStore = new MockStore(Number(id))
-  const newApiStore = await new ApiStore(id).initialize()
-  // console.log('newMockStore', newMockStore)
-  // console.log('newApiStore', newApiStore)
+  const newApiStore = new ApiStore(id)
+  await newApiStore.initialize()
+  console.log('newMockStore', newMockStore)
+  console.log('newApiStore', newApiStore.data)
 
-  if (newMockStore.length === 0 && newApiStore.length === 0) {
-    throw new Response(`Loader error: user with id ${id} does not exist`, {
-      status: 404,
+  if (newApiStore.error && newMockStore.error) {
+    throw new Response(``, {
+      status: newApiStore.error.status,
+      statusText: newApiStore.error.statusText,
     })
-  } else if (newApiStore.length === 4) {
-    console.log('newApiUser')
-    const newApiUser = new User(...newApiStore)
-    return newApiUser
-  } else if (newMockStore.length === 4) {
-    console.log('newMockUser')
-    const newMockUser = new User(...newMockStore)
-    return newMockUser
+  } else if (!newApiStore.error) {
+    console.log('API')
+    const newUser = new User(newApiStore.data)
+    console.timeEnd('loader')
+    return newUser
+  } else if (!newMockStore.error) {
+    console.log('MOCK')
+    const newUser = new User(newMockStore.data)
+    console.timeEnd('loader')
+    return newUser
   }
 }

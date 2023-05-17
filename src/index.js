@@ -9,12 +9,12 @@ import './styles/main.scss'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: 'user',
     element: <Layout />,
     errorElement: <Error />,
     children: [
       {
-        path: 'profile/:id',
+        path: ':id/profile',
         element: <Profile />,
         loader: profileLoader,
       },

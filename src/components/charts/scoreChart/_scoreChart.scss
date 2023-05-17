@@ -5,7 +5,7 @@
 }
 
 .score-chart {
-  @include chart(relative, $color-secondary);
+  @include chart($color-secondary);
   &__title {
     position: absolute;
     top: 24px;

@@ -5,7 +5,7 @@ export default function KeyInfos({ data }) {
   return (
     <div className="key-infos">
       {Object.keys(data).map((el, value) => {
-        return <InfoCard key={`${el}-${value}`} cardData={data[el]} />
+        return <InfoCard key={`${el}-${value}`} data={data[el]} />
       })}
     </div>
   )

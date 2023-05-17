@@ -2,14 +2,16 @@
 @import './utils/variables';
 @import './utils/mixins';
 @import './base/base';
+
+// COMPONENTS
 // Layout
 @import '../layouts/layout';
 @import '../layouts/header/header';
 @import '../layouts/sidebar/sidebar';
-// Infos component
+// Key infos
 @import '../components/keyInfos/infoCard/infoCard';
 @import '../components/keyInfos/keyInfos';
-// Charts
+// Chart
 @import '../components/charts/scoreChart/scoreChart';
 @import '../components/charts/scoreChart/legend/scoreChartLegend';
 @import '../components/charts/PerformanceChart/PerformanceChart';
@@ -18,6 +20,8 @@
 @import '../components/charts/activityChart/activityChart';
 @import '../components/charts/activityChart/legend/activityChartLegend';
 @import '../components/charts/activityChart/tooltip/activityChartTooltip';
+// No data
+@import '../components/noDataText/noDataText';
 // Page
 @import '../pages/error/error';
 @import '../pages/profile/profile';

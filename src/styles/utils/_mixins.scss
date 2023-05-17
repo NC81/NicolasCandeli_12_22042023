@@ -1,5 +1,5 @@
-@mixin chart($position, $colour) {
-  position: $position;
+@mixin chart($colour) {
+  position: relative;
   width: 258px;
   height: 263px;
   background: $colour;

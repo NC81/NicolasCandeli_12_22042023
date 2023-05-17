@@ -1,5 +1,5 @@
 .sessions-chart {
-  @include chart(relative, $color-primary);
+  @include chart($color-primary);
   &__title {
     position: absolute;
     width: 150px;
