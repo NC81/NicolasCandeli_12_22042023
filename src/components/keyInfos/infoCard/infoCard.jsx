@@ -2,12 +2,10 @@ import PropTypes from 'prop-types'
 import NoDataText from '../../noDataText/noDataText'
 
 export default function InfoCard({ data }) {
-  // console.log('InfoCard data', data)
-
   return (
     <div className="info-card">
       {!data.value ? (
-        <NoDataText chart={'infos'} title={'Infos clés'} />
+        <NoDataText chart={'infos'} title={data.name} />
       ) : (
         <>
           <div
@@ -31,11 +29,11 @@ export default function InfoCard({ data }) {
 
 InfoCard.propTypes = {
   data: PropTypes.exact({
-    name: PropTypes.string,
-    value: PropTypes.string,
-    unit: PropTypes.string,
-    color: PropTypes.string,
-    icon: PropTypes.string,
-    alt: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    unit: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
   }).isRequired,
 }

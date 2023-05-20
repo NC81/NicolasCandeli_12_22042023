@@ -1,6 +1,8 @@
 .lt-header {
+  position: relative;
   display: flex;
   height: 91px;
+  z-index: 1;
   // gap: 11.2%;
   gap: 149px;
   padding: 0 87px 0 28px;

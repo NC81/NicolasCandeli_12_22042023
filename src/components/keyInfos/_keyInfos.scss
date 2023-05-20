@@ -1,7 +1,9 @@
 .key-infos {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   max-width: 835px;
+  min-height: 124px;
   gap: 39px 30px;
   flex: 1 258px;
 }

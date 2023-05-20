@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
-import MockStore from '../../services/mock-store'
-import ApiStore from '../../services/api-store'
+import FindMock from '../../services/find-mock'
+import fetchAPI from '../../services/fetch-api'
 import User from '../../models/user'
 import KeyInfos from '../../components/keyInfos/keyInfos'
 import ScoreChart from '../../components/charts/scoreChart/scoreChart'
@@ -26,14 +26,13 @@ export default function Profile() {
         </div>
         <div className="dash-header-hidden"></div>
       </header>
-
       <main>
         <div className="dash-charts">
           <ActivityChart data={data.activity} />
           <div className="dash-charts__group">
             <SessionsChart data={data.averageSessions} />
             <PerformanceChart data={data.performance} />
-            <ScoreChart data={data.score} />
+            <ScoreChart data={data.todayScore ?? data.score} />
           </div>
         </div>
         <KeyInfos data={data.keyData} />
@@ -43,28 +42,26 @@ export default function Profile() {
 }
 
 export async function profileLoader({ params }) {
-  console.time('loader')
   const { id } = params
-  const newMockStore = new MockStore(Number(id))
-  const newApiStore = new ApiStore(id)
-  await newApiStore.initialize()
-  console.log('newMockStore', newMockStore)
-  console.log('newApiStore', newApiStore.data)
+  const mockData = new FindMock(Number(id))
+  const APIData = await fetchAPI(id)
+  console.log('mockData', mockData)
+  console.log('APIData', APIData)
 
-  if (newApiStore.error && newMockStore.error) {
-    throw new Response(``, {
-      status: newApiStore.error.status,
-      statusText: newApiStore.error.statusText,
+  if (APIData.netError && mockData.error) {
+    throw new Error(APIData.netError.message, {})
+  } else if (APIData.httpError && mockData.error) {
+    throw new Response('HTTP Error', {
+      status: APIData.httpError.status,
+      statusText: APIData.httpError.statusText,
     })
-  } else if (!newApiStore.error) {
+  } else if (!APIData.netError && !APIData.httpError) {
     console.log('API')
-    const newUser = new User(newApiStore.data)
-    console.timeEnd('loader')
+    const newUser = new User(APIData.data)
     return newUser
-  } else if (!newMockStore.error) {
+  } else if (!mockData.error) {
     console.log('MOCK')
-    const newUser = new User(newMockStore.data)
-    console.timeEnd('loader')
+    const newUser = new User(mockData.data)
     return newUser
   }
 }

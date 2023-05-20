@@ -4,17 +4,17 @@ import apple from '../assets/apple.svg'
 import cheeseburger from '../assets/cheeseburger.svg'
 
 export default class User {
-  constructor(object) {
-    this.raw_main = object.raw_main
-    this.raw_activity = object.raw_activity
-    this.raw_averageSessions = object.raw_averageSessions
-    this.raw_performance = object.raw_performance
-    this.firstName = this.raw_main.userInfos.firstName
-    this.score = this.raw_main.todayScore ?? this.raw_main.score
+  constructor(data) {
+    this.raw_main = data.raw_main
+    this.raw_activity = data.raw_activity
+    this.raw_averageSessions = data.raw_averageSessions
+    this.raw_performance = data.raw_performance
+    this.firstName = data.raw_main.userInfos.firstName
+    this.score = data.raw_main.todayScore ?? data.raw_main.score
   }
 
   get activity() {
-    if (!this.raw_activity) {
+    if (!this.raw_activity || !this.raw_activity.sessions) {
       return undefined
     }
 
@@ -23,6 +23,7 @@ export default class User {
     const newSessions = sessions.map((el) => {
       const dayString = el.day.split('-')[2]
       const dayCharactersArray = dayString.split('')
+
       return {
         ...el,
         dayStringNumber:
@@ -36,7 +37,7 @@ export default class User {
   }
 
   get averageSessions() {
-    if (!this.raw_averageSessions) {
+    if (!this.raw_averageSessions || !this.raw_averageSessions.sessions) {
       return undefined
     }
 
@@ -50,7 +51,8 @@ export default class User {
       6: 'S',
       7: 'D',
     }
-    const { sessions } = this.raw_averageSessions
+
+    let { sessions } = this.raw_averageSessions
 
     let newSessions = [
       { day: 0, sessionLength: sessions[0].sessionLength },
@@ -66,7 +68,11 @@ export default class User {
   }
 
   get performance() {
-    if (!this.raw_performance) {
+    if (
+      !this.raw_performance ||
+      !this.raw_performance.data ||
+      !this.raw_performance.kind
+    ) {
       return undefined
     }
 
@@ -93,8 +99,8 @@ export default class User {
       return undefined
     }
 
-    const { keyData } = this.raw_main
-    let { calorieCount, proteinCount, carbohydrateCount, lipidCount } = keyData
+    let { calorieCount, proteinCount, carbohydrateCount, lipidCount } =
+      this.raw_main.keyData
 
     calorieCount = {
       name: 'Calories',

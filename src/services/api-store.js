@@ -1,48 +1,46 @@
-export default class ApiStore {
-  constructor(id) {
-    this.id = id
-    this.data = {}
-  }
+// export default class ApiStore {
+//   constructor(id) {
+//     this.id = id
+//     this.data = {}
+//   }
 
-  async initialize() {
-    const builder = [
-      ['', 'raw_main'],
-      ['activity', 'raw_activity'],
-      ['average-sessions', 'raw_averageSessions'],
-      ['performance', 'raw_performance'],
-    ]
+//   async initialize() {
+//     const builder = [
+//       ['', 'raw_main'],
+//       ['activity', 'raw_activity'],
+//       ['average-sessions', 'raw_averageSessions'],
+//       ['performance', 'raw_performance'],
+//     ]
 
-    for (const [resource, property] of builder) {
-      const response = await this.fetchData(resource)
-      if (property === 'raw_main' && response instanceof Response) {
-        this.error = response
-        break
-      } else if (!(response instanceof Response)) {
-        this.data[property] = response
-      }
-    }
-  }
+//     for (const [resource, property] of builder) {
+//       const userData = await this.fetchData(resource)
+//       if (property === 'raw_main' && userData instanceof Response) {
+//         this.error = userData
+//         break
+//       } else if (!(userData instanceof Response)) {
+//         this.data[property] = userData
+//       }
+//     }
+//   }
 
-  async fetchData(resource) {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/user/${this.id}/${resource}`
-      )
-      const { data } = await response.json()
-      if (response.ok) {
-        return data
-      } else {
-        throw response
-      }
-    } catch (err) {
-      if (err instanceof Response) {
-        return err
-      } else {
-        return new Response('Test', {
-          status: 404,
-          statusText: 'Service Unavailable',
-        })
-      }
-    }
-  }
-}
+//   async fetchData(resource) {
+//     try {
+//       const response = await fetch(
+//         `http://localhost:3000/user/${this.id}/${resource}`
+//       )
+//       const { data } = await response.json()
+//       if (response.ok) {
+//         return data
+//       } else {
+//         console.log('404')
+//         return response
+//       }
+//     } catch (err) {
+//       console.log('TypeError')
+//       return new Response('Test', {
+//         // status: 404,
+//         statusText: 'Service Unavailable',
+//       })
+//     }
+//   }
+// }

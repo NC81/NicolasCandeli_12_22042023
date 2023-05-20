@@ -107,9 +107,9 @@ export default function SessionsChart({ data }) {
 SessionsChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
-      day: PropTypes.number,
-      sessionLength: PropTypes.number,
-      dayLetter: PropTypes.string,
-    })
+      day: PropTypes.number.isRequired,
+      sessionLength: PropTypes.number.isRequired,
+      dayLetter: PropTypes.string.isRequired,
+    }).isRequired
   ).isRequired,
 }

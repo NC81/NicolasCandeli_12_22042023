@@ -4,7 +4,6 @@ import Sidebar from '../../layouts/sidebar/sidebar'
 
 export default function Error() {
   const error = useRouteError()
-  // console.error('composant erreur', error)
 
   return (
     <>

@@ -14,7 +14,8 @@ import {
 } from 'recharts'
 
 export default function ActivityChart({ data }) {
-  // console.log('ActivityChart data', data)
+  // console.log('ActivityChart', data)
+
   const axisStyle = {
     fill: '#9B9EAC',
     fontSize: '14px',
@@ -110,9 +111,9 @@ export default function ActivityChart({ data }) {
 ActivityChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      kilogram: PropTypes.number,
-      calories: PropTypes.number,
-      dayStringNumber: PropTypes.string,
-    })
+      kilogram: PropTypes.number.isRequired,
+      calories: PropTypes.number.isRequired,
+      dayStringNumber: PropTypes.string.isRequired,
+    }).isRequired
   ).isRequired,
 }

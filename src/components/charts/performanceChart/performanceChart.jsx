@@ -11,7 +11,7 @@ import {
 } from 'recharts'
 
 export default function PerformanceChart({ data }) {
-  // console.log('PerformanceChart data', data)
+  // console.log('PerformanceChart', data)
 
   function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
     return (
@@ -53,8 +53,8 @@ export default function PerformanceChart({ data }) {
 PerformanceChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.number,
-      type: PropTypes.string,
+      value: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
     })
   ).isRequired,
 }
