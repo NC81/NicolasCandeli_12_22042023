@@ -31,7 +31,6 @@ export default function ActivityChart({ data }) {
           <ResponsiveContainer>
             <BarChart
               data={data}
-              height={100}
               margin={{
                 top: 112,
                 right: 38,
@@ -41,7 +40,6 @@ export default function ActivityChart({ data }) {
             >
               <Legend
                 width={278}
-                height={24}
                 content={<ActivityChartLegend />}
                 wrapperStyle={{ top: 24, right: 26 }}
               />

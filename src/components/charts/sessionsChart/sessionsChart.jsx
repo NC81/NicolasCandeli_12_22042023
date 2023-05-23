@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { curveCardinal } from 'd3-shape'
 import PropTypes from 'prop-types'
 import NoDataText from '../../noDataText/noDataText'
 import {
@@ -14,12 +15,11 @@ import SessionsChartTooltip from './tooltip/sessionsChartTooltip'
 
 export default function SessionsChart({ data }) {
   const [isTooltipActive, setTooltipActive] = useState(false)
-  const [TooltipIndex, setTooltipIndex] = useState(0)
+  const [activeTooltipIndex, setActiveTooltipIndex] = useState(0)
 
   function handleMouseOver(e) {
     setTooltipActive(e.isTooltipActive)
-    setTooltipIndex(e.activeTooltipIndex)
-    // console.log('handleMouseOver', e)
+    setActiveTooltipIndex(e.activeTooltipIndex)
   }
 
   function CustomActiveDot(props) {
@@ -47,6 +47,7 @@ export default function SessionsChart({ data }) {
             <LineChart
               data={data}
               margin={{
+                top: 90,
                 right: -20,
                 left: -20,
                 bottom: 10,
@@ -60,8 +61,9 @@ export default function SessionsChart({ data }) {
             >
               {isTooltipActive ? (
                 <ReferenceArea
-                  x1={TooltipIndex}
-                  y1={-46}
+                  x1={activeTooltipIndex}
+                  y1={130}
+                  y2={-50}
                   ifOverflow="visible"
                   fill="rgba(0, 0, 0, 0.15)"
                 />
@@ -75,7 +77,7 @@ export default function SessionsChart({ data }) {
                 axisLine={false}
                 tickLine={false}
               ></XAxis>
-              <YAxis hide domain={['dataMin - 20', 'dataMax + 60']} />
+              <YAxis hide domain={['dataMin - 10', 'dataMax']} />
               <Tooltip
                 content={<SessionsChartTooltip />}
                 wrapperStyle={{ outline: 'none' }}
@@ -88,7 +90,7 @@ export default function SessionsChart({ data }) {
                 </linearGradient>
               </defs>
               <Line
-                type="natural"
+                type={curveCardinal}
                 dataKey="sessionLength"
                 stroke="url(#color-line)"
                 strokeWidth={2}

@@ -8,15 +8,13 @@ export default function Error() {
   return (
     <>
       <Header />
-      <div className="page-wrapper">
-        <Sidebar />
-        <div className="error-wrapper">
-          <h1>{error.status}</h1>
-          <p>Sorry, an unexpected error has occurred.</p>
-          <p>
-            <i>{error.statusText || error.message}</i>
-          </p>
-        </div>
+      <Sidebar />
+      <div className="error-wrapper">
+        <h1>{error.status}</h1>
+        <p>Sorry, an unexpected error has occurred.</p>
+        <p>
+          <i>{error.statusText || error.message}</i>
+        </p>
       </div>
     </>
   )

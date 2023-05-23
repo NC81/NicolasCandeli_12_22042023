@@ -8,19 +8,16 @@ export default function ScoreChart({ data }) {
   const restAsPercent = 100 - scoreAsPercent
   const emptyData = [
     {
-      name: 'Center',
       value: 1,
       fill: 'white',
     },
   ]
   const trueData = [
     {
-      name: 'Score',
       value: scoreAsPercent,
       fill: 'red',
     },
     {
-      name: 'Rest',
       value: restAsPercent,
       fill: 'transparent',
     },

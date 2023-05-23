@@ -28,8 +28,8 @@ export default class User {
         ...el,
         dayStringNumber:
           dayCharactersArray[0] === '0'
-            ? el.day.split('-')[2].replace('0', '')
-            : el.day.split('-')[2],
+            ? dayString.replace('0', '')
+            : dayString,
       }
     })
 
@@ -41,6 +41,14 @@ export default class User {
       return undefined
     }
 
+    let { sessions } = this.raw_averageSessions
+
+    let newSessions = [
+      { day: 0, sessionLength: sessions[0].sessionLength },
+      ...sessions,
+      { day: 0, sessionLength: sessions[6].sessionLength },
+    ]
+
     const days = {
       0: '',
       1: 'L',
@@ -51,15 +59,6 @@ export default class User {
       6: 'S',
       7: 'D',
     }
-
-    let { sessions } = this.raw_averageSessions
-
-    let newSessions = [
-      { day: 0, sessionLength: sessions[0].sessionLength },
-      ...sessions,
-      { day: 0, sessionLength: sessions[6].sessionLength },
-    ]
-
     newSessions = newSessions.map((el) => {
       return { ...el, dayLetter: days[el.day] }
     })

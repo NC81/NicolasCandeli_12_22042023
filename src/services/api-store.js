@@ -32,13 +32,10 @@
 //       if (response.ok) {
 //         return data
 //       } else {
-//         console.log('404')
 //         return response
 //       }
 //     } catch (err) {
-//       console.log('TypeError')
 //       return new Response('Test', {
-//         // status: 404,
 //         statusText: 'Service Unavailable',
 //       })
 //     }

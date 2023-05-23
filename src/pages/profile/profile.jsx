@@ -49,7 +49,7 @@ export async function profileLoader({ params }) {
   console.log('APIData', APIData)
 
   if (APIData.netError && mockData.error) {
-    throw new Error(APIData.netError.message, {})
+    throw new Error(APIData.netError, {})
   } else if (APIData.httpError && mockData.error) {
     throw new Response('HTTP Error', {
       status: APIData.httpError.status,

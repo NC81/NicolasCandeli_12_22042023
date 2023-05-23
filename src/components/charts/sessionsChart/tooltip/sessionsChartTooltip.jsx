@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export default function SessionsChartTooltip({ active, payload }) {
-  if (active && payload && payload.length) {
+  if (active) {
     return (
       <div className="sessions-chart-tooltip">
         <p className="label">{payload[0].value} min</p>

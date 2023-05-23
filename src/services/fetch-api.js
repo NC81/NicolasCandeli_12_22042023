@@ -6,7 +6,7 @@ export default async function fetchAPI(id) {
       fetch(`http://localhost:3000/user/${id}/average-sessions`),
       fetch(`http://localhost:3000/user/${id}/performance`),
     ])
-
+    console.log('ap promise all')
     let error
     const jsonPromises = responses.map((response) =>
       response.ok
@@ -15,6 +15,7 @@ export default async function fetchAPI(id) {
         ? (error = response) && undefined
         : undefined
     )
+    console.log('jsonPromises', jsonPromises)
 
     const finalData = await Promise.all(jsonPromises)
     const flatFinalData = finalData.map((el) => (el ? el.data : undefined))
@@ -27,7 +28,7 @@ export default async function fetchAPI(id) {
     }
   } catch (err) {
     return {
-      netError: { message: `${err.name} : ${err.message}` },
+      netError: `${err.name}: ${err.message}`,
     }
   }
 }
