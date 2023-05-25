@@ -1,12 +1,12 @@
 import { useLoaderData } from 'react-router-dom'
-import FindMock from '../../services/find-mock'
+import findMock from '../../services/find-mock'
 import fetchAPI from '../../services/fetch-api'
 import User from '../../models/user'
-import KeyInfos from '../../components/keyInfos/keyInfos'
-import ScoreChart from '../../components/charts/scoreChart/scoreChart'
-import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
-import SessionsChart from '../../components/charts/sessionsChart/sessionsChart'
 import ActivityChart from '../../components/charts/activityChart/activityChart'
+import SessionsChart from '../../components/charts/sessionsChart/sessionsChart'
+import PerformanceChart from '../../components/charts/performanceChart/performanceChart'
+import ScoreChart from '../../components/charts/scoreChart/scoreChart'
+import KeyInfos from '../../components/keyInfos/keyInfos'
 
 export default function Profile() {
   const data = useLoaderData()
@@ -32,7 +32,7 @@ export default function Profile() {
           <div className="dash-charts__group">
             <SessionsChart data={data.averageSessions} />
             <PerformanceChart data={data.performance} />
-            <ScoreChart data={data.todayScore ?? data.score} />
+            <ScoreChart data={data.score} />
           </div>
         </div>
         <KeyInfos data={data.keyData} />
@@ -41,27 +41,36 @@ export default function Profile() {
   )
 }
 
+/**
+ * React Router function that throws exceptions or returns user API/mock formatted data
+ *
+ * @param {Object} params - Object with dynamic params from URL
+ * @throws {Error} - If fetchAPI() returns a network error and findMock() returns an error
+ * @throws {Response} - If fetchAPI() returns an HTTP error and findMock() returns an error
+ * @return {Object} User API formatted data if fetchAPI() does not return any error
+ * @return {Object} User mock formatted data if fetchAPI() returns an error
+ */
 export async function profileLoader({ params }) {
   const { id } = params
-  const mockData = new FindMock(Number(id))
+  const mockData = findMock(Number(id))
   const APIData = await fetchAPI(id)
   console.log('mockData', mockData)
   console.log('APIData', APIData)
 
-  if (APIData.netError && mockData.error) {
+  if (APIData.netError && mockData.isError) {
     throw new Error(APIData.netError, {})
-  } else if (APIData.httpError && mockData.error) {
+  } else if (APIData.httpError && mockData.isError) {
     throw new Response('HTTP Error', {
       status: APIData.httpError.status,
       statusText: APIData.httpError.statusText,
     })
   } else if (!APIData.netError && !APIData.httpError) {
     console.log('API')
-    const newUser = new User(APIData.data)
+    const newUser = new User(APIData.raw_data)
     return newUser
   } else if (!mockData.error) {
     console.log('MOCK')
-    const newUser = new User(mockData.data)
+    const newUser = new User(mockData.raw_data)
     return newUser
   }
 }

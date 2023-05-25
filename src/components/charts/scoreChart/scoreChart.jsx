@@ -4,24 +4,7 @@ import ScoreChartLegend from './legend/scoreChartLegend'
 import NoDataText from '../../noDataText/noDataText'
 
 export default function ScoreChart({ data }) {
-  const scoreAsPercent = data * 100
-  const restAsPercent = 100 - scoreAsPercent
-  const emptyData = [
-    {
-      value: 1,
-      fill: 'white',
-    },
-  ]
-  const trueData = [
-    {
-      value: scoreAsPercent,
-      fill: 'red',
-    },
-    {
-      value: restAsPercent,
-      fill: 'transparent',
-    },
-  ]
+  // console.log('score', data)
 
   return (
     <div className="score-chart">
@@ -34,17 +17,17 @@ export default function ScoreChart({ data }) {
             <PieChart wrapperStyle={{ outline: 'none' }}>
               <Legend
                 verticalAlign="middle"
-                content={<ScoreChartLegend score={scoreAsPercent} />}
+                content={<ScoreChartLegend score={data[0].value} />}
                 wrapperStyle={{ top: 105 }}
               />
               <Pie
-                data={emptyData}
+                data={[{ value: 1, fill: 'white' }]}
                 dataKey="value"
                 outerRadius={80}
                 isAnimationActive={false}
               ></Pie>
               <Pie
-                data={trueData}
+                data={data}
                 dataKey="value"
                 innerRadius={80}
                 outerRadius={90}
@@ -62,5 +45,10 @@ export default function ScoreChart({ data }) {
 }
 
 ScoreChart.propTypes = {
-  data: PropTypes.number.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      fill: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 }

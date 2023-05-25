@@ -17,25 +17,6 @@ export default function SessionsChart({ data }) {
   const [isTooltipActive, setTooltipActive] = useState(false)
   const [activeTooltipIndex, setActiveTooltipIndex] = useState(0)
 
-  function handleMouseOver(e) {
-    setTooltipActive(e.isTooltipActive)
-    setActiveTooltipIndex(e.activeTooltipIndex)
-  }
-
-  function CustomActiveDot(props) {
-    const { cx, cy } = props
-    return (
-      <circle
-        cx={cx}
-        cy={cy}
-        r={4}
-        stroke="rgba(255, 255, 255, 0.2)"
-        strokeWidth={10}
-        fill="white"
-      />
-    )
-  }
-
   return (
     <div className="sessions-chart">
       {!data ? (
@@ -53,7 +34,8 @@ export default function SessionsChart({ data }) {
                 bottom: 10,
               }}
               onMouseMove={(e) => {
-                handleMouseOver(e)
+                setTooltipActive(e.isTooltipActive)
+                setActiveTooltipIndex(e.activeTooltipIndex)
               }}
               onMouseLeave={() => {
                 setTooltipActive(false)
@@ -103,6 +85,20 @@ export default function SessionsChart({ data }) {
         </>
       )}
     </div>
+  )
+}
+
+function CustomActiveDot(props) {
+  const { cx, cy } = props
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={4}
+      stroke="rgba(255, 255, 255, 0.2)"
+      strokeWidth={10}
+      fill="white"
+    />
   )
 }
 

@@ -1,3 +1,10 @@
+/**
+ * Function that fetches user API data required for profile page
+ *
+ * @param {String} id - User ID
+ * @return {{data: Object, httpError: Response}} User raw data object and error response if an HTTP error occurs
+ * @return {{netError: String}} String of error's name/message if a network error occurs
+ */
 export default async function fetchAPI(id) {
   try {
     const responses = await Promise.all([
@@ -6,7 +13,7 @@ export default async function fetchAPI(id) {
       fetch(`http://localhost:3000/user/${id}/average-sessions`),
       fetch(`http://localhost:3000/user/${id}/performance`),
     ])
-    console.log('ap promise all')
+
     let error
     const jsonPromises = responses.map((response) =>
       response.ok
@@ -15,15 +22,12 @@ export default async function fetchAPI(id) {
         ? (error = response) && undefined
         : undefined
     )
-    console.log('jsonPromises', jsonPromises)
-
     const finalData = await Promise.all(jsonPromises)
     const flatFinalData = finalData.map((el) => (el ? el.data : undefined))
-    const [raw_main, raw_activity, raw_averageSessions, raw_performance] =
-      flatFinalData
+    const [main, activity, averageSessions, performance] = flatFinalData
 
     return {
-      data: { raw_main, raw_activity, raw_averageSessions, raw_performance },
+      raw_data: { main, activity, averageSessions, performance },
       httpError: error,
     }
   } catch (err) {

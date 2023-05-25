@@ -1,30 +1,32 @@
 const mockData = require('../data/mock-data')
 
-export default class MockStore {
-  constructor(id) {
-    this.id = id
-    this.data = {}
+/**
+ * Function that finds user mock data required for profile page
+ *
+ * @param {Number} id - User ID
+ * @return {{raw_data: Object, isError: Boolean}} User raw data object and error detection if user does not exist
+ */
+export default function findMock(id) {
+  const builder = [
+    [mockData.USER_MAIN_DATA, 'main'],
+    [mockData.USER_ACTIVITY, 'activity'],
+    [mockData.USER_AVERAGE_SESSIONS, 'averageSessions'],
+    [mockData.USER_PERFORMANCE, 'performance'],
+  ]
 
-    const builder = [
-      [mockData.USER_MAIN_DATA, 'raw_main'],
-      [mockData.USER_ACTIVITY, 'raw_activity'],
-      [mockData.USER_AVERAGE_SESSIONS, 'raw_averageSessions'],
-      [mockData.USER_PERFORMANCE, 'raw_performance'],
-    ]
-
-    for (const [array, property] of builder) {
-      const userData = this.findData(array)
-      if (property === 'raw_main' && !userData) {
-        this.error = true
-        break
-      } else if (userData) {
-        this.data[property] = userData
-      }
+  let raw_data = {}
+  for (const [array, property] of builder) {
+    const userData = array.find((el) => (el.id ?? el.userId) === id)
+    if (property === 'main' && !userData) {
+      var isError = true
+      break
+    } else if (userData) {
+      raw_data[property] = userData
     }
   }
 
-  findData(array) {
-    const userData = array.find((el) => (el.id ?? el.userId) === this.id)
-    return userData
+  return {
+    raw_data: raw_data,
+    isError: isError,
   }
 }

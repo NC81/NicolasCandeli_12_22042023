@@ -3,22 +3,32 @@ import chicken from '../assets/chicken.svg'
 import apple from '../assets/apple.svg'
 import cheeseburger from '../assets/cheeseburger.svg'
 
+/**
+ * Class representing user data model used in profile page
+ *
+ * @param {Object} raw_data - All user raw data
+ * @param {Object} raw_data.main - User main raw data (first/last name, age, KPI, key data)
+ * @param {Object} raw_data.activity - User daily activity raw data
+ * @param {Object} raw_data.averageSessions - User average sessions raw data
+ * @param {Object} raw_data.performance - User performance per activity type raw data
+ * @property {String} firstName - User first name
+ */
 export default class User {
-  constructor(data) {
-    this.raw_main = data.raw_main
-    this.raw_activity = data.raw_activity
-    this.raw_averageSessions = data.raw_averageSessions
-    this.raw_performance = data.raw_performance
-    this.firstName = data.raw_main.userInfos.firstName
-    this.score = data.raw_main.todayScore ?? data.raw_main.score
+  constructor(raw_data) {
+    this.raw_data = raw_data
+    this.firstName = raw_data.main.userInfos.firstName
   }
 
+  /**
+   * Getter that converts activity raw data into usable bar chart data
+   * @return {Array} Array of objects with new X axis tick names
+   */
   get activity() {
-    if (!this.raw_activity || !this.raw_activity.sessions) {
+    if (!this.raw_data.activity || !this.raw_data.activity.sessions) {
       return undefined
     }
 
-    const { sessions } = this.raw_activity
+    const { sessions } = this.raw_data.activity
 
     const newSessions = sessions.map((el) => {
       const dayString = el.day.split('-')[2]
@@ -36,12 +46,19 @@ export default class User {
     return newSessions
   }
 
+  /**
+   * Getter that converts average sessions raw data into usable line chart data
+   * @return {Array} Extended array of objects with new X axis tick names
+   */
   get averageSessions() {
-    if (!this.raw_averageSessions || !this.raw_averageSessions.sessions) {
+    if (
+      !this.raw_data.averageSessions ||
+      !this.raw_data.averageSessions.sessions
+    ) {
       return undefined
     }
 
-    let { sessions } = this.raw_averageSessions
+    let { sessions } = this.raw_data.averageSessions
 
     let newSessions = [
       { day: 0, sessionLength: sessions[0].sessionLength },
@@ -66,11 +83,15 @@ export default class User {
     return newSessions
   }
 
+  /**
+   * Getter that converts performance raw data into usable radar chart data
+   * @return {Array} Array of objects with new polar angle axis tick names
+   */
   get performance() {
     if (
-      !this.raw_performance ||
-      !this.raw_performance.data ||
-      !this.raw_performance.kind
+      !this.raw_data.performance ||
+      !this.raw_data.performance.data ||
+      !this.raw_data.performance.kind
     ) {
       return undefined
     }
@@ -83,8 +104,8 @@ export default class User {
       speed: 'Vitesse',
       intensity: 'Intensité',
     }
-    const { data } = this.raw_performance
-    const { kind } = this.raw_performance
+    const { data } = this.raw_data.performance
+    const { kind } = this.raw_data.performance
 
     const newData = data.map((el) => {
       return { ...el, type: newKind[kind[el.kind]] }
@@ -93,13 +114,44 @@ export default class User {
     return newData.reverse()
   }
 
+  /**
+   * Getter that converts score rate raw data into usable pie chart data
+   * @return {Array} Array of two objects illustrating pie slices
+   */
+  get score() {
+    if (!this.raw_data.main.todayScore && !this.raw_data.main.score) {
+      return undefined
+    }
+
+    const score = this.raw_data.main.todayScore ?? this.raw_data.main.score
+    const scoreAsPercent = score * 100
+    const restAsPercent = 100 - scoreAsPercent
+
+    const data = [
+      {
+        value: scoreAsPercent,
+        fill: 'red',
+      },
+      {
+        value: restAsPercent,
+        fill: 'transparent',
+      },
+    ]
+
+    return data
+  }
+
+  /**
+   * Getter that creates an object for each key data type
+   * @return {Object} Object with four objects facilitating key data cards rendering
+   */
   get keyData() {
-    if (!this.raw_main.keyData) {
+    if (!this.raw_data.main.keyData) {
       return undefined
     }
 
     let { calorieCount, proteinCount, carbohydrateCount, lipidCount } =
-      this.raw_main.keyData
+      this.raw_data.main.keyData
 
     calorieCount = {
       name: 'Calories',
