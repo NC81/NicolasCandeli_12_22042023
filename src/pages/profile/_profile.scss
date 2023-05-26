@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 68px 0 86px 117px;
+  padding: 6.6vh 0 8.5vh 117px;
   header {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0 30px;
     min-width: 835px;
     max-width: 1124px;
-    width: 90%;
+    width: 92%;
   }
   main {
     display: flex;
@@ -18,19 +19,15 @@
     gap: 30px;
     min-width: 835px;
     max-width: 1124px;
-    width: 90%;
+    width: 92%;
   }
 }
 
 .dash-header-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  margin-bottom: 77px;
+  margin-bottom: 7.5vh;
   &-greetings {
     width: 835px;
-    margin-bottom: 41px;
+    margin-bottom: 4vh;
     &__name {
       color: $color-septenary;
     }
@@ -49,11 +46,9 @@
 .dash-charts {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex: 1;
   gap: 30px;
   &__group {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
   }
 }

@@ -9,7 +9,7 @@ import './styles/main.scss'
 
 const router = createBrowserRouter([
   {
-    path: 'user',
+    path: '/',
     element: <Layout />,
     errorElement: <Error />,
     children: [

@@ -13,20 +13,6 @@ import {
 export default function PerformanceChart({ data }) {
   // console.log('PerformanceChart', data)
 
-  function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
-    return (
-      <Text
-        {...rest}
-        verticalAnchor="middle"
-        y={y + (y - cy) / 10}
-        x={x + (x - cx) / 1000}
-        fill="white"
-        fontSize="12px"
-      >
-        {payload.value}
-      </Text>
-    )
-  }
   return (
     <div className="perf-chart">
       {!data ? (
@@ -50,11 +36,26 @@ export default function PerformanceChart({ data }) {
   )
 }
 
+function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
+  return (
+    <Text
+      {...rest}
+      verticalAnchor="middle"
+      y={y + (y - cy) / 10}
+      x={x + (x - cx) / 1000}
+      fill="white"
+      fontSize="12px"
+    >
+      {payload.value}
+    </Text>
+  )
+}
+
 PerformanceChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
-    })
+    }).isRequired
   ).isRequired,
 }

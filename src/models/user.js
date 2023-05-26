@@ -7,7 +7,7 @@ import cheeseburger from '../assets/cheeseburger.svg'
  * Class representing user data model used in profile page
  *
  * @param {Object} raw_data - All user raw data
- * @param {Object} raw_data.main - User main raw data (first/last name, age, KPI, key data)
+ * @param {Object} raw_data.main - User main information raw data (first/last name, age, KPI, key data)
  * @param {Object} raw_data.activity - User daily activity raw data
  * @param {Object} raw_data.averageSessions - User average sessions raw data
  * @param {Object} raw_data.performance - User performance per activity type raw data

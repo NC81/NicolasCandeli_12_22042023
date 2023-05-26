@@ -29,9 +29,9 @@ export default function SessionsChart({ data }) {
               data={data}
               margin={{
                 top: 90,
-                right: -20,
-                left: -20,
-                bottom: 10,
+                right: -18,
+                left: -18,
+                bottom: 14,
               }}
               onMouseMove={(e) => {
                 setTooltipActive(e.isTooltipActive)

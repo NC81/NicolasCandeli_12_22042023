@@ -33,8 +33,8 @@ export default function ActivityChart({ data }) {
               data={data}
               margin={{
                 top: 112,
-                right: 38,
-                bottom: 8,
+                right: 37,
+                bottom: 11,
               }}
               barGap={8}
             >
@@ -50,7 +50,7 @@ export default function ActivityChart({ data }) {
               />
               <XAxis
                 dataKey="dayStringNumber"
-                tickMargin={16}
+                tickMargin={20}
                 stroke="rgb(222, 222, 222)"
                 tickLine={false}
                 padding={{ left: -45, right: -45 }}
@@ -65,7 +65,7 @@ export default function ActivityChart({ data }) {
                   (dataMax) => (dataMax % 2 === 0 ? dataMax + 4 : dataMax + 5),
                 ]}
                 tickCount={3}
-                tickMargin={45}
+                tickMargin={40}
                 axisLine={false}
                 tickLine={false}
                 style={axisStyle}
