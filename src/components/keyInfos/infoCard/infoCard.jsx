@@ -3,32 +3,32 @@ import NoDataText from '../../noDataText/noDataText'
 
 export default function InfoCard({ data }) {
   return (
-    <div className="info-card">
+    <article className="info-card">
       {!data.value ? (
         <NoDataText chart={'infos'} title={data.name} />
       ) : (
         <>
           <div
-            className="info-card__icon-container"
+            className="info-card__icon-wrapper"
             style={{ backgroundColor: `${data.color}` }}
           >
             <img src={data.icon} alt={data.alt} />
           </div>
-          <div className="info-card__details">
+          <div>
             <p>
               {data.value}
               {data.unit}
             </p>
-            <p>{data.name}</p>
+            <h2>{data.name}</h2>
           </div>
         </>
       )}
-    </div>
+    </article>
   )
 }
 
 InfoCard.propTypes = {
-  data: PropTypes.exact({
+  data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     unit: PropTypes.string.isRequired,

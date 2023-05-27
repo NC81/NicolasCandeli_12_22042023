@@ -6,7 +6,7 @@ export default function KeyInfos({ data }) {
   // console.log('KeyInfos', data)
 
   return (
-    <div className="key-infos">
+    <div className="dash-content-cards">
       {!data ? (
         <NoDataText chart={'infos'} title={'Infos clés'} />
       ) : (

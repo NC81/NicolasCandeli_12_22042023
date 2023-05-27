@@ -2,10 +2,10 @@ import logo from '../../assets/logo.svg'
 
 export default function Header() {
   return (
-    <header className="layout-header">
-      <img className="layout-header__logo" src={logo} alt="SportSee logo" />
-      <nav className="layout-header__nav">
-        <ul className="layout-header__list">
+    <header className="root-header">
+      <img className="root-header__logo" src={logo} alt="SportSee logo" />
+      <nav className="root-header__nav">
+        <ul className="root-header__list">
           <li>Accueil</li>
           <li>Profil</li>
           <li>Réglage</li>

@@ -18,7 +18,7 @@ export default function SessionsChart({ data }) {
   const [activeTooltipIndex, setActiveTooltipIndex] = useState(0)
 
   return (
-    <div className="sessions-chart">
+    <article className="sessions-chart">
       {!data ? (
         <NoDataText chart={'sessions'} title={'Durée moyenne des sessions'} />
       ) : (
@@ -84,7 +84,7 @@ export default function SessionsChart({ data }) {
           </ResponsiveContainer>
         </>
       )}
-    </div>
+    </article>
   )
 }
 
@@ -104,8 +104,7 @@ function CustomActiveDot(props) {
 
 SessionsChart.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.exact({
-      day: PropTypes.number.isRequired,
+    PropTypes.shape({
       sessionLength: PropTypes.number.isRequired,
       dayLetter: PropTypes.string.isRequired,
     }).isRequired

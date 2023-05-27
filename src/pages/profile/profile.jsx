@@ -13,12 +13,12 @@ export default function Profile() {
   console.log('Profile data', data)
 
   return (
-    <div className="dash-wrapper">
-      <header>
+    <main className="dash-wrapper">
+      <header className="dash-header">
         <div className="dash-header-title">
-          <h1 className="dash-header-title-greetings">
+          <h1 className="dash-header-title__greetings">
             Bonjour{' '}
-            <span className="dash-header-title-greetings__name">
+            <span className="dash-header-title__greetings-name">
               {data.firstName}
             </span>
           </h1>
@@ -26,18 +26,18 @@ export default function Profile() {
         </div>
         <div className="dash-header-hidden"></div>
       </header>
-      <main>
-        <div className="dash-charts">
+      <div className="dash-content">
+        <div className="dash-content-charts">
           <ActivityChart data={data.activity} />
-          <div className="dash-charts__group">
+          <div className="dash-content-charts__group">
             <SessionsChart data={data.averageSessions} />
             <PerformanceChart data={data.performance} />
             <ScoreChart data={data.score} />
           </div>
         </div>
         <KeyInfos data={data.keyData} />
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }
 

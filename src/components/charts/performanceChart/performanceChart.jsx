@@ -14,7 +14,7 @@ export default function PerformanceChart({ data }) {
   // console.log('PerformanceChart', data)
 
   return (
-    <div className="perf-chart">
+    <article className="perf-chart">
       {!data ? (
         <NoDataText chart={'performance'} title={'Type d’activité'} />
       ) : (
@@ -32,7 +32,7 @@ export default function PerformanceChart({ data }) {
           </ResponsiveContainer>
         </>
       )}
-    </div>
+    </article>
   )
 }
 

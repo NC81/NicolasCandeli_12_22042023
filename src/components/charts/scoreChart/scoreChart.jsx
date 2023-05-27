@@ -7,7 +7,7 @@ export default function ScoreChart({ data }) {
   // console.log('score', data)
 
   return (
-    <div className="score-chart">
+    <article className="score-chart">
       {!data ? (
         <NoDataText chart={'score'} title={'Score'} />
       ) : (
@@ -40,7 +40,7 @@ export default function ScoreChart({ data }) {
           </ResponsiveContainer>
         </>
       )}
-    </div>
+    </article>
   )
 }
 

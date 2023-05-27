@@ -22,7 +22,7 @@ export default function ActivityChart({ data }) {
   }
 
   return (
-    <div className="activity-chart">
+    <article className="activity-chart">
       {!data ? (
         <NoDataText chart={'activity'} title={'Activité quotidienne'} />
       ) : (
@@ -102,7 +102,7 @@ export default function ActivityChart({ data }) {
           </ResponsiveContainer>
         </>
       )}
-    </div>
+    </article>
   )
 }
 

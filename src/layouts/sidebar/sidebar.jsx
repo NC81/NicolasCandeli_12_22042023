@@ -6,7 +6,7 @@ import dumbbell from '../../assets/dumbbell.svg'
 
 export default function Sidebar() {
   return (
-    <div className="sidebar">
+    <aside className="sidebar">
       <nav>
         <ul className="sidebar__list">
           <li>
@@ -32,6 +32,6 @@ export default function Sidebar() {
         </ul>
       </nav>
       <footer className="sidebar__footer">Copyright, SportSee 2020</footer>
-    </div>
+    </aside>
   )
 }
