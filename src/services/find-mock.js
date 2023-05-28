@@ -1,10 +1,18 @@
 const mockData = require('../data/mock-data')
 
 /**
+ * Object of user mock data and error boolean
+ *
+ * @typedef {Object} mockUser
+ * @property {Object} raw_data - User mock data from all required resources
+ * @property {Response} isError - Indicates whether an error has occured
+ */
+
+/**
  * Function that finds user mock data required for profile page
  *
  * @param {Number} id - User ID
- * @return {{raw_data: Object, isError: Boolean}} User raw data object and error detection if user does not exist
+ * @return {mockUser} Object of user mock data and error boolean
  */
 export default function findMock(id) {
   const builder = [

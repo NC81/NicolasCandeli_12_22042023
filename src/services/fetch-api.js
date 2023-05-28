@@ -1,9 +1,17 @@
 /**
+ * Object of user API data and error content
+ *
+ * @typedef {Object} APIUser
+ * @property {Object} raw_data - User API data coming from all required endpoints
+ * @property {Response} httpError - Error response if an HTTP error has occured
+ * @property {String} netError Name and message of error if a network error has occured
+ */
+
+/**
  * Function that fetches user API data required for profile page
  *
  * @param {String} id - User ID
- * @return {{data: Object, httpError: Response}} User raw data object and error response if an HTTP error occurs
- * @return {{netError: String}} String of error's name/message if a network error occurs
+ * @returns {APIUser} Object of user API data and error content
  */
 export default async function fetchAPI(id) {
   try {

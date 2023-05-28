@@ -6,4 +6,4 @@
 - Clone [P12 repository](https://github.com/NC81/NicolasCandeli_12_22042023)
 - Type `yarn dev` in API directory
 - Type `npm start` in P12 directory
-- Enter URL `http://localhost:3001/id/profile` with `id`: **12** or **18**
+- Enter URL `http://localhost:3001/profile/id` (**id** as **12** or **18**)

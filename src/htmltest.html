@@ -1,0 +1,1764 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>SportSee</title>
+    <script defer="" src="/static/js/bundle.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 500;
+      }
+
+      h2,
+      h3 {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .layout-header {
+        position: relative;
+        display: flex;
+        height: 91px;
+        z-index: 1;
+        gap: 11.2%;
+        padding: 0 87px 0 28px;
+        background-color: #020203;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+      .layout-header__logo {
+        margin-top: 18px;
+        height: 61px;
+      }
+      .layout-header__nav {
+        width: 100%;
+        margin-top: 36px;
+        color: white;
+      }
+      .layout-header__list {
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+      }
+
+      .sidebar {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        top: 0;
+        width: 117px;
+        height: 100%;
+        gap: 16vh;
+        padding-bottom: 5.8vh;
+        background-color: #020203;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+      .sidebar__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .sidebar__list li {
+        width: 64px;
+        height: 64px;
+        border-radius: 6px;
+        background-color: white;
+      }
+      .sidebar__list a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .sidebar__footer {
+        margin-left: 42px;
+        font-size: 12px;
+        color: white;
+        writing-mode: vertical-rl;
+        transform: scale(-1);
+      }
+
+      .info-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 32px;
+        width: 258px;
+        height: 124px;
+        gap: 24px;
+        background-color: #fbfbfb;
+        border-radius: 5px;
+      }
+      .info-card__icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+      }
+      .info-card__details {
+        font-size: 14px;
+        color: #74798c;
+      }
+      .info-card__details :first-child {
+        margin-bottom: 2px;
+        font-size: 20px;
+        color: #282d30;
+        font-weight: bold;
+      }
+      .info-card--hidden {
+        width: 258px;
+      }
+
+      .key-infos {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 835px;
+        gap: 39px 30px;
+        flex: 1 1 258px;
+      }
+
+      .recharts-layer:focus,
+      .recharts-surface:focus,
+      .recharts-sector:focus {
+        outline: unset;
+      }
+
+      .score-chart {
+        position: relative;
+        width: 258px;
+        height: 263px;
+        background: #fbfbfb;
+        border-radius: 5px;
+      }
+      .score-chart__title {
+        position: absolute;
+        top: 24px;
+        left: 30px;
+        color: #20253a;
+      }
+
+      .score-chart-legend {
+        text-align: center;
+        font-size: 16px;
+        line-height: 26px;
+        color: #74798c;
+      }
+      .score-chart-legend :first-child {
+        font-size: 26px;
+        font-weight: bold;
+        color: #282d30;
+      }
+
+      .perf-chart {
+        position: relative;
+        width: 258px;
+        height: 263px;
+        background: #282d30;
+        border-radius: 5px;
+      }
+
+      .sessions-chart {
+        position: relative;
+        width: 258px;
+        height: 263px;
+        background: #ff0000;
+        border-radius: 5px;
+      }
+      .sessions-chart__title {
+        position: absolute;
+        width: 150px;
+        top: 29px;
+        left: 34px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .sessions-chart .recharts-surface {
+        border-radius: 5px;
+      }
+
+      .sessions-chart-tooltip {
+        min-width: 39px;
+        padding: 0 7px;
+        background-color: white;
+        text-align: center;
+        font-size: 8px;
+      }
+
+      .activity-chart {
+        position: relative;
+        width: 835px;
+        height: 320px;
+        background-color: #fbfbfb;
+        border-radius: 5px;
+      }
+      .activity-chart__title {
+        position: absolute;
+        top: 24px;
+        left: 32px;
+        color: #20253a;
+      }
+
+      .activity-chart-legend {
+        display: flex;
+        width: max-content;
+        gap: 32px;
+      }
+      .activity-chart-legend li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: #74798c;
+      }
+      .activity-chart-legend__icon {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .activity-chart-legend__icon--weight {
+        background-color: #282d30;
+      }
+      .activity-chart-legend__icon--calories {
+        background-color: #e60000;
+      }
+
+      .activity-chart-tooltip {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        margin: 0 50px;
+        min-width: 39px;
+        height: 63px;
+        padding: 4px;
+        background-color: #e60000;
+        text-align: center;
+        font-size: 7px;
+        color: white;
+      }
+
+      .no-data {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 240px;
+        line-height: 24px;
+        top: calc(50% - 48px);
+        left: calc(50% - 120px);
+      }
+      .no-data--activity,
+      .no-data--score,
+      .no-data--infos {
+        color: #282d30;
+      }
+      .no-data--performance,
+      .no-data--sessions {
+        color: white;
+      }
+      .no-data h3 {
+        text-decoration: underline;
+      }
+      .no-data span {
+        font-size: 14px;
+      }
+
+      .error-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: calc(100vh - 91px);
+        padding-left: 117px;
+      }
+      .error-wrapper h1 {
+        font-size: 96px;
+        line-height: 96px;
+        color: red;
+      }
+      .error-wrapper p {
+        margin-top: 20px;
+        font-size: 24px;
+      }
+
+      .dash-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6.6vh 0 8.5vh 117px;
+      }
+      .dash-wrapper header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 30px;
+        min-width: 835px;
+        max-width: 1124px;
+        width: 92%;
+      }
+      .dash-wrapper main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        min-width: 835px;
+        max-width: 1124px;
+        width: 92%;
+      }
+
+      .dash-header-title {
+        margin-bottom: 7.5vh;
+      }
+      .dash-header-title-greetings {
+        width: 835px;
+        margin-bottom: 4vh;
+      }
+      .dash-header-title-greetings__name {
+        color: #ff0101;
+      }
+      .dash-header-title p {
+        width: 835px;
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      .dash-header-hidden {
+        flex: 1 1 258px;
+      }
+
+      .dash-charts {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .dash-charts__group {
+        display: flex;
+        justify-content: space-between;
+      }
+      /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9zdHlsZXMvYmFzZS9fYmFzZS5zY3NzIiwid2VicGFjazovLy4vc3JjL3N0eWxlcy9tYWluLnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvbGF5b3V0cy9oZWFkZXIvX2hlYWRlci5zY3NzIiwid2VicGFjazovLy4vc3JjL3N0eWxlcy91dGlscy9fdmFyaWFibGVzLnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvbGF5b3V0cy9zaWRlYmFyL19zaWRlYmFyLnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvY29tcG9uZW50cy9rZXlJbmZvcy9pbmZvQ2FyZC9faW5mb0NhcmQuc2NzcyIsIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2tleUluZm9zL19rZXlJbmZvcy5zY3NzIiwid2VicGFjazovLy4vc3JjL2NvbXBvbmVudHMvY2hhcnRzL3Njb3JlQ2hhcnQvX3Njb3JlQ2hhcnQuc2NzcyIsIndlYnBhY2s6Ly8uL3NyYy9zdHlsZXMvdXRpbHMvX21peGlucy5zY3NzIiwid2VicGFjazovLy4vc3JjL2NvbXBvbmVudHMvY2hhcnRzL3Njb3JlQ2hhcnQvbGVnZW5kL3Njb3JlQ2hhcnRMZWdlbmQuc2NzcyIsIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2NoYXJ0cy9QZXJmb3JtYW5jZUNoYXJ0L19QZXJmb3JtYW5jZUNoYXJ0LnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvY29tcG9uZW50cy9jaGFydHMvc2Vzc2lvbnNDaGFydC9fc2Vzc2lvbnNDaGFydC5zY3NzIiwid2VicGFjazovLy4vc3JjL2NvbXBvbmVudHMvY2hhcnRzL3Nlc3Npb25zQ2hhcnQvdG9vbHRpcC9fc2Vzc2lvbnNDaGFydFRvb2x0aXAuc2NzcyIsIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2NoYXJ0cy9hY3Rpdml0eUNoYXJ0L19hY3Rpdml0eUNoYXJ0LnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvY29tcG9uZW50cy9jaGFydHMvYWN0aXZpdHlDaGFydC9sZWdlbmQvX2FjdGl2aXR5Q2hhcnRMZWdlbmQuc2NzcyIsIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2NoYXJ0cy9hY3Rpdml0eUNoYXJ0L3Rvb2x0aXAvX2FjdGl2aXR5Q2hhcnRUb29sdGlwLnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvY29tcG9uZW50cy9ub0RhdGFUZXh0L19ub0RhdGFUZXh0LnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvcGFnZXMvZXJyb3IvX2Vycm9yLnNjc3MiLCJ3ZWJwYWNrOi8vLi9zcmMvcGFnZXMvcHJvZmlsZS9fcHJvZmlsZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsU0FBQTtFQUNBLFVBQUE7RUFDQSxzQkFBQTtBQ0NGOztBREVBO0VBQ0UsOENBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUNDRjs7QURFQTs7RUFFRSxlQUFBO0VBQ0EsZ0JBQUE7QUNDRjs7QURFQTtFQUNFLGdCQUFBO0FDQ0Y7O0FDekJBO0VBQ0Usa0JBQUE7RUFDQSxhQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxVQUFBO0VBQ0Esc0JBQUE7RUFDQSx5QkNDYTtFREFiLDJDQUFBO0FENEJGO0FDM0JFO0VBQ0UsZ0JBQUE7RUFDQSxZQUFBO0FENkJKO0FDM0JFO0VBQ0UsV0FBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtBRDZCSjtBQzNCRTtFQUNFLGFBQUE7RUFDQSw4QkFBQTtFQUNBLGVBQUE7QUQ2Qko7O0FHbERBO0VBQ0UsZUFBQTtFQUNBLGFBQUE7RUFDQSxzQkFBQTtFQUNBLHlCQUFBO0VBQ0EsTUFBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0EsU0FBQTtFQUNBLHFCQUFBO0VBQ0EseUJERmE7RUNHYiwyQ0FBQTtBSHFERjtBR3BERTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0EsU0FBQTtBSHNESjtBR3JESTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSx1QkFBQTtBSHVETjtBR3JESTtFQUNFLGFBQUE7RUFDQSx1QkFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtBSHVETjtBR3BERTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLG9CQUFBO0FIc0RKOztBSXpGQTtFQUNFLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLFNBQUE7RUFDQSx5QkZQZ0I7RUVRaEIsa0JBQUE7QUo0RkY7QUkzRkU7RUFDRSxhQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7QUo2Rko7QUkzRkU7RUFDRSxlQUFBO0VBQ0EsY0ZoQlk7QUY2R2hCO0FJNUZJO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsY0Z0Qlc7RUV1QlgsaUJBQUE7QUo4Rk47QUkzRkU7RUFDRSxZQUFBO0FKNkZKOztBSzFIQTtFQUNFLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxlQUFBO0FMNkhGOztBTW5JQTs7O0VBR0UsY0FBQTtBTnNJRjs7QU1uSUE7RUNMRSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxhQUFBO0VBQ0EsbUJMSGdCO0VLSWhCLGtCQUFBO0FQNElGO0FNeklFO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLGNKUFc7QUZrSmY7O0FRdkpBO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0FSMEpGO0FRekpFO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY05OYTtBRmlLakI7O0FTbktBO0VGQ0Usa0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLG1CTEZlO0VLR2Ysa0JBQUE7QVBzS0Y7O0FVM0tBO0VIQ0Usa0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLG1CTEpjO0VLS2Qsa0JBQUE7QVA4S0Y7QVVqTEU7RUFDRSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLCtCQUFBO0FWbUxKO0FVakxFO0VBQ0Usa0JBQUE7QVZtTEo7O0FXN0xBO0VBQ0UsZUFBQTtFQUNBLGNBQUE7RUFDQSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsY0FBQTtBWGdNRjs7QVlyTUE7RUFDRSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxhQUFBO0VBQ0EseUJWSGdCO0VVSWhCLGtCQUFBO0Fad01GO0FZdk1FO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLGNWTFc7QUY4TWY7O0Fhbk5BO0VBQ0UsYUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtBYnNORjtBYXJORTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLFNBQUE7RUFDQSxlQUFBO0VBQ0EsY1hMWTtBRjROaEI7QWFyTkU7RUFDRSxVQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0FidU5KO0FhdE5JO0VBQ0UseUJYZFc7QUZzT2pCO0FhdE5JO0VBQ0UseUJYWlc7QUZvT2pCOztBYzNPQTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLFFBQUE7RUFDQSxjQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0EseUJaRGU7RVlFZixrQkFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FkOE9GOztBZXpQQTtFQUNFLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxxQkFBQTtFQUNBLHVCQUFBO0FmNFBGO0FlM1BFO0VBR0UsY2JWYTtBRnFRakI7QWV6UEU7RUFFRSxZQUFBO0FmMFBKO0FleFBFO0VBQ0UsMEJBQUE7QWYwUEo7QWV4UEU7RUFDRSxlQUFBO0FmMFBKOztBZ0JoUkE7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSx1QkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtFQUNBLDBCQUFBO0VBQ0EsbUJBQUE7QWhCbVJGO0FnQmxSRTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUNBLFVBQUE7QWhCb1JKO0FnQmxSRTtFQUNFLGdCQUFBO0VBQ0EsZUFBQTtBaEJvUko7O0FpQm5TQTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0EsNEJBQUE7QWpCc1NGO0FpQnJTRTtFQUNFLGFBQUE7RUFDQSxlQUFBO0VBQ0EsdUJBQUE7RUFDQSxXQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLFVBQUE7QWpCdVNKO0FpQnJTRTtFQUNFLGFBQUE7RUFDQSxlQUFBO0VBQ0EsdUJBQUE7RUFDQSxTQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLFVBQUE7QWpCdVNKOztBaUJuU0E7RUFDRSxvQkFBQTtBakJzU0Y7QWlCclNFO0VBQ0UsWUFBQTtFQUNBLGtCQUFBO0FqQnVTSjtBaUJ0U0k7RUFDRSxjZnpCWTtBRmlVbEI7QWlCclNFO0VBQ0UsWUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBakJ1U0o7O0FpQm5TQTtFQUNFLGVBQUE7QWpCc1NGOztBaUJuU0E7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxTQUFBO0FqQnNTRjtBaUJyU0U7RUFDRSxhQUFBO0VBQ0EsOEJBQUE7QWpCdVNKIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgbWFyZ2luOiAwO1xyXG4gIHBhZGRpbmc6IDA7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxufVxyXG5cclxuYm9keSB7XHJcbiAgZm9udC1mYW1pbHk6ICdSb2JvdG8nLCAnSGVsdmV0aWNhJywgc2Fucy1zZXJpZjtcclxuICBmb250LXdlaWdodDogNTAwO1xyXG4gIGxpbmUtaGVpZ2h0OiAyNHB4O1xyXG59XHJcblxyXG5oMSB7XHJcbiAgZm9udC1zaXplOiA0OHB4O1xyXG4gIGZvbnQtd2VpZ2h0OiA1MDA7XHJcbn1cclxuXHJcbmgyLFxyXG5oMyB7XHJcbiAgZm9udC1zaXplOiAxNXB4O1xyXG4gIGZvbnQtd2VpZ2h0OiA1MDA7XHJcbn1cclxuXHJcbnVsIHtcclxuICBsaXN0LXN0eWxlOiBub25lO1xyXG59XHJcbiIsIioge1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbmJvZHkge1xuICBmb250LWZhbWlseTogXCJSb2JvdG9cIiwgXCJIZWx2ZXRpY2FcIiwgc2Fucy1zZXJpZjtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgbGluZS1oZWlnaHQ6IDI0cHg7XG59XG5cbmgxIHtcbiAgZm9udC1zaXplOiA0OHB4O1xuICBmb250LXdlaWdodDogNTAwO1xufVxuXG5oMixcbmgzIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBmb250LXdlaWdodDogNTAwO1xufVxuXG51bCB7XG4gIGxpc3Qtc3R5bGU6IG5vbmU7XG59XG5cbi5sYXlvdXQtaGVhZGVyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBoZWlnaHQ6IDkxcHg7XG4gIHotaW5kZXg6IDE7XG4gIGdhcDogMTEuMiU7XG4gIHBhZGRpbmc6IDAgODdweCAwIDI4cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwMjAyMDM7XG4gIGJveC1zaGFkb3c6IDBweCA0cHggNHB4IHJnYmEoMCwgMCwgMCwgMC4yNSk7XG59XG4ubGF5b3V0LWhlYWRlcl9fbG9nbyB7XG4gIG1hcmdpbi10b3A6IDE4cHg7XG4gIGhlaWdodDogNjFweDtcbn1cbi5sYXlvdXQtaGVhZGVyX19uYXYge1xuICB3aWR0aDogMTAwJTtcbiAgbWFyZ2luLXRvcDogMzZweDtcbiAgY29sb3I6IHdoaXRlO1xufVxuLmxheW91dC1oZWFkZXJfX2xpc3Qge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG4gIGZvbnQtc2l6ZTogMjRweDtcbn1cblxuLnNpZGViYXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDExN3B4O1xuICBoZWlnaHQ6IDEwMCU7XG4gIGdhcDogMTZ2aDtcbiAgcGFkZGluZy1ib3R0b206IDUuOHZoO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDIwMjAzO1xuICBib3gtc2hhZG93OiAwcHggNHB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMjUpO1xufVxuLnNpZGViYXJfX2xpc3Qge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBnYXA6IDIwcHg7XG59XG4uc2lkZWJhcl9fbGlzdCBsaSB7XG4gIHdpZHRoOiA2NHB4O1xuICBoZWlnaHQ6IDY0cHg7XG4gIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG4uc2lkZWJhcl9fbGlzdCBhIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGhlaWdodDogMTAwJTtcbn1cbi5zaWRlYmFyX19mb290ZXIge1xuICBtYXJnaW4tbGVmdDogNDJweDtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBjb2xvcjogd2hpdGU7XG4gIHdyaXRpbmctbW9kZTogdmVydGljYWwtcmw7XG4gIHRyYW5zZm9ybTogc2NhbGUoLTEpO1xufVxuXG4uaW5mby1jYXJkIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBwYWRkaW5nLWxlZnQ6IDMycHg7XG4gIHdpZHRoOiAyNThweDtcbiAgaGVpZ2h0OiAxMjRweDtcbiAgZ2FwOiAyNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmJmYmZiO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG4uaW5mby1jYXJkX19pY29uLWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aDogNjBweDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG4uaW5mby1jYXJkX19kZXRhaWxzIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzc0Nzk4Yztcbn1cbi5pbmZvLWNhcmRfX2RldGFpbHMgOmZpcnN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMnB4O1xuICBmb250LXNpemU6IDIwcHg7XG4gIGNvbG9yOiAjMjgyZDMwO1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbi5pbmZvLWNhcmQtLWhpZGRlbiB7XG4gIHdpZHRoOiAyNThweDtcbn1cblxuLmtleS1pbmZvcyB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtYXgtd2lkdGg6IDgzNXB4O1xuICBnYXA6IDM5cHggMzBweDtcbiAgZmxleDogMSAyNThweDtcbn1cblxuLnJlY2hhcnRzLWxheWVyOmZvY3VzLFxuLnJlY2hhcnRzLXN1cmZhY2U6Zm9jdXMsXG4ucmVjaGFydHMtc2VjdG9yOmZvY3VzIHtcbiAgb3V0bGluZTogdW5zZXQ7XG59XG5cbi5zY29yZS1jaGFydCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2lkdGg6IDI1OHB4O1xuICBoZWlnaHQ6IDI2M3B4O1xuICBiYWNrZ3JvdW5kOiAjZmJmYmZiO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG4uc2NvcmUtY2hhcnRfX3RpdGxlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDI0cHg7XG4gIGxlZnQ6IDMwcHg7XG4gIGNvbG9yOiAjMjAyNTNhO1xufVxuXG4uc2NvcmUtY2hhcnQtbGVnZW5kIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXNpemU6IDE2cHg7XG4gIGxpbmUtaGVpZ2h0OiAyNnB4O1xuICBjb2xvcjogIzc0Nzk4Yztcbn1cbi5zY29yZS1jaGFydC1sZWdlbmQgOmZpcnN0LWNoaWxkIHtcbiAgZm9udC1zaXplOiAyNnB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgY29sb3I6ICMyODJkMzA7XG59XG5cbi5wZXJmLWNoYXJ0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB3aWR0aDogMjU4cHg7XG4gIGhlaWdodDogMjYzcHg7XG4gIGJhY2tncm91bmQ6ICMyODJkMzA7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbn1cblxuLnNlc3Npb25zLWNoYXJ0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB3aWR0aDogMjU4cHg7XG4gIGhlaWdodDogMjYzcHg7XG4gIGJhY2tncm91bmQ6ICNmZjAwMDA7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbn1cbi5zZXNzaW9ucy1jaGFydF9fdGl0bGUge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiAxNTBweDtcbiAgdG9wOiAyOXB4O1xuICBsZWZ0OiAzNHB4O1xuICBjb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjUpO1xufVxuLnNlc3Npb25zLWNoYXJ0IC5yZWNoYXJ0cy1zdXJmYWNlIHtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xufVxuXG4uc2Vzc2lvbnMtY2hhcnQtdG9vbHRpcCB7XG4gIG1pbi13aWR0aDogMzlweDtcbiAgcGFkZGluZzogMCA3cHg7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtc2l6ZTogOHB4O1xufVxuXG4uYWN0aXZpdHktY2hhcnQge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiA4MzVweDtcbiAgaGVpZ2h0OiAzMjBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZiZmJmYjtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xufVxuLmFjdGl2aXR5LWNoYXJ0X190aXRsZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAyNHB4O1xuICBsZWZ0OiAzMnB4O1xuICBjb2xvcjogIzIwMjUzYTtcbn1cblxuLmFjdGl2aXR5LWNoYXJ0LWxlZ2VuZCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHdpZHRoOiBtYXgtY29udGVudDtcbiAgZ2FwOiAzMnB4O1xufVxuLmFjdGl2aXR5LWNoYXJ0LWxlZ2VuZCBsaSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGdhcDogMTJweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzc0Nzk4Yztcbn1cbi5hY3Rpdml0eS1jaGFydC1sZWdlbmRfX2ljb24ge1xuICB3aWR0aDogOHB4O1xuICBoZWlnaHQ6IDhweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xufVxuLmFjdGl2aXR5LWNoYXJ0LWxlZ2VuZF9faWNvbi0td2VpZ2h0IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI4MmQzMDtcbn1cbi5hY3Rpdml0eS1jaGFydC1sZWdlbmRfX2ljb24tLWNhbG9yaWVzIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U2MDAwMDtcbn1cblxuLmFjdGl2aXR5LWNoYXJ0LXRvb2x0aXAge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBnYXA6IDdweDtcbiAgbWFyZ2luOiAwIDUwcHg7XG4gIG1pbi13aWR0aDogMzlweDtcbiAgaGVpZ2h0OiA2M3B4O1xuICBwYWRkaW5nOiA0cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlNjAwMDA7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiA3cHg7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm5vLWRhdGEge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoOiAyNDBweDtcbiAgbGluZS1oZWlnaHQ6IDI0cHg7XG4gIHRvcDogY2FsYyg1MCUgLSA0OHB4KTtcbiAgbGVmdDogY2FsYyg1MCUgLSAxMjBweCk7XG59XG4ubm8tZGF0YS0tYWN0aXZpdHksIC5uby1kYXRhLS1zY29yZSwgLm5vLWRhdGEtLWluZm9zIHtcbiAgY29sb3I6ICMyODJkMzA7XG59XG4ubm8tZGF0YS0tcGVyZm9ybWFuY2UsIC5uby1kYXRhLS1zZXNzaW9ucyB7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cbi5uby1kYXRhIGgzIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7XG59XG4ubm8tZGF0YSBzcGFuIHtcbiAgZm9udC1zaXplOiAxNHB4O1xufVxuXG4uZXJyb3Itd3JhcHBlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gOTFweCk7XG4gIHBhZGRpbmctbGVmdDogMTE3cHg7XG59XG4uZXJyb3Itd3JhcHBlciBoMSB7XG4gIGZvbnQtc2l6ZTogOTZweDtcbiAgbGluZS1oZWlnaHQ6IDk2cHg7XG4gIGNvbG9yOiByZWQ7XG59XG4uZXJyb3Itd3JhcHBlciBwIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbiAgZm9udC1zaXplOiAyNHB4O1xufVxuXG4uZGFzaC13cmFwcGVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgcGFkZGluZzogNi42dmggMCA4LjV2aCAxMTdweDtcbn1cbi5kYXNoLXdyYXBwZXIgaGVhZGVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgZ2FwOiAwIDMwcHg7XG4gIG1pbi13aWR0aDogODM1cHg7XG4gIG1heC13aWR0aDogMTEyNHB4O1xuICB3aWR0aDogOTIlO1xufVxuLmRhc2gtd3JhcHBlciBtYWluIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgZ2FwOiAzMHB4O1xuICBtaW4td2lkdGg6IDgzNXB4O1xuICBtYXgtd2lkdGg6IDExMjRweDtcbiAgd2lkdGg6IDkyJTtcbn1cblxuLmRhc2gtaGVhZGVyLXRpdGxlIHtcbiAgbWFyZ2luLWJvdHRvbTogNy41dmg7XG59XG4uZGFzaC1oZWFkZXItdGl0bGUtZ3JlZXRpbmdzIHtcbiAgd2lkdGg6IDgzNXB4O1xuICBtYXJnaW4tYm90dG9tOiA0dmg7XG59XG4uZGFzaC1oZWFkZXItdGl0bGUtZ3JlZXRpbmdzX19uYW1lIHtcbiAgY29sb3I6ICNmZjAxMDE7XG59XG4uZGFzaC1oZWFkZXItdGl0bGUgcCB7XG4gIHdpZHRoOiA4MzVweDtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBmb250LXdlaWdodDogNDAwO1xufVxuXG4uZGFzaC1oZWFkZXItaGlkZGVuIHtcbiAgZmxleDogMSAxIDI1OHB4O1xufVxuXG4uZGFzaC1jaGFydHMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBnYXA6IDMwcHg7XG59XG4uZGFzaC1jaGFydHNfX2dyb3VwIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufSIsIi5sYXlvdXQtaGVhZGVyIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBoZWlnaHQ6IDkxcHg7XHJcbiAgei1pbmRleDogMTtcclxuICBnYXA6IDExLjIlO1xyXG4gIHBhZGRpbmc6IDAgODdweCAwIDI4cHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogJGNvbG9yLW5vbmFyeTtcclxuICBib3gtc2hhZG93OiAwcHggNHB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMjUpO1xyXG4gICZfX2xvZ28ge1xyXG4gICAgbWFyZ2luLXRvcDogMThweDtcclxuICAgIGhlaWdodDogNjFweDtcclxuICB9XHJcbiAgJl9fbmF2IHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgbWFyZ2luLXRvcDogMzZweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICB9XHJcbiAgJl9fbGlzdCB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgZm9udC1zaXplOiAyNHB4O1xyXG4gIH1cclxufVxyXG4iLCIkY29sb3ItcHJpbWFyeTogI2ZmMDAwMDtcclxuJGNvbG9yLXNlY29uZGFyeTogI2ZiZmJmYjtcclxuJGNvbG9yLXRlcnRpYXJ5OiAjMjgyZDMwO1xyXG4kY29sb3ItcXVhdGVybmFyeTogIzIwMjUzYTtcclxuJGNvbG9yLXF1aW5hcnk6ICM3NDc5OGM7XHJcbiRjb2xvci1zZW5hcnk6ICMyMDI1M2E7XHJcbiRjb2xvci1zZXB0ZW5hcnk6ICNmZjAxMDE7XHJcbiRjb2xvci1vY3RvbmFyeTogI2U2MDAwMDtcclxuJGNvbG9yLW5vbmFyeTogIzAyMDIwMztcclxuIiwiLnNpZGViYXIge1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LWVuZDtcclxuICB0b3A6IDA7XHJcbiAgd2lkdGg6IDExN3B4O1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBnYXA6IDE2dmg7XHJcbiAgcGFkZGluZy1ib3R0b206IDUuOHZoO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICRjb2xvci1ub25hcnk7XHJcbiAgYm94LXNoYWRvdzogMHB4IDRweCA0cHggcmdiYSgwLCAwLCAwLCAwLjI1KTtcclxuICAmX19saXN0IHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGdhcDogMjBweDtcclxuICAgIGxpIHtcclxuICAgICAgd2lkdGg6IDY0cHg7XHJcbiAgICAgIGhlaWdodDogNjRweDtcclxuICAgICAgYm9yZGVyLXJhZGl1czogNnB4O1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgIH1cclxuICAgIGEge1xyXG4gICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgfVxyXG4gIH1cclxuICAmX19mb290ZXIge1xyXG4gICAgbWFyZ2luLWxlZnQ6IDQycHg7XHJcbiAgICBmb250LXNpemU6IDEycHg7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICB3cml0aW5nLW1vZGU6IHZlcnRpY2FsLXJsO1xyXG4gICAgdHJhbnNmb3JtOiBzY2FsZSgtMSk7XHJcbiAgfVxyXG59XHJcbiIsIi5pbmZvLWNhcmQge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgcGFkZGluZy1sZWZ0OiAzMnB4O1xyXG4gIHdpZHRoOiAyNThweDtcclxuICBoZWlnaHQ6IDEyNHB4O1xyXG4gIGdhcDogMjRweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAkY29sb3Itc2Vjb25kYXJ5O1xyXG4gIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAmX19pY29uLWNvbnRhaW5lciB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgd2lkdGg6IDYwcHg7XHJcbiAgICBoZWlnaHQ6IDYwcHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA2cHg7XHJcbiAgfVxyXG4gICZfX2RldGFpbHMge1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgY29sb3I6ICRjb2xvci1xdWluYXJ5O1xyXG4gICAgOmZpcnN0LWNoaWxkIHtcclxuICAgICAgbWFyZ2luLWJvdHRvbTogMnB4O1xyXG4gICAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICAgIGNvbG9yOiAkY29sb3ItdGVydGlhcnk7XHJcbiAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgfVxyXG4gIH1cclxuICAmLS1oaWRkZW4ge1xyXG4gICAgd2lkdGg6IDI1OHB4O1xyXG4gIH1cclxufVxyXG4iLCIua2V5LWluZm9zIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LXdyYXA6IHdyYXA7XHJcbiAgbWF4LXdpZHRoOiA4MzVweDtcclxuICBnYXA6IDM5cHggMzBweDtcclxuICBmbGV4OiAxIDI1OHB4O1xyXG59XHJcbiIsIi5yZWNoYXJ0cy1sYXllcjpmb2N1cyxcclxuLnJlY2hhcnRzLXN1cmZhY2U6Zm9jdXMsXHJcbi5yZWNoYXJ0cy1zZWN0b3I6Zm9jdXMge1xyXG4gIG91dGxpbmU6IHVuc2V0O1xyXG59XHJcblxyXG4uc2NvcmUtY2hhcnQge1xyXG4gIEBpbmNsdWRlIGNoYXJ0KCRjb2xvci1zZWNvbmRhcnkpO1xyXG4gICZfX3RpdGxlIHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMjRweDtcclxuICAgIGxlZnQ6IDMwcHg7XHJcbiAgICBjb2xvcjogJGNvbG9yLXNlbmFyeTtcclxuICB9XHJcbn1cclxuIiwiQG1peGluIGNoYXJ0KCRjb2xvdXIpIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgd2lkdGg6IDI1OHB4O1xyXG4gIGhlaWdodDogMjYzcHg7XHJcbiAgYmFja2dyb3VuZDogJGNvbG91cjtcclxuICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbn1cclxuIiwiLnNjb3JlLWNoYXJ0LWxlZ2VuZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICBsaW5lLWhlaWdodDogMjZweDtcclxuICBjb2xvcjogJGNvbG9yLXF1aW5hcnk7XHJcbiAgOmZpcnN0LWNoaWxkIHtcclxuICAgIGZvbnQtc2l6ZTogMjZweDtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgY29sb3I6ICRjb2xvci10ZXJ0aWFyeTtcclxuICB9XHJcbn1cclxuIiwiLnBlcmYtY2hhcnQge1xyXG4gIEBpbmNsdWRlIGNoYXJ0KCRjb2xvci10ZXJ0aWFyeSk7XHJcbn1cclxuIiwiLnNlc3Npb25zLWNoYXJ0IHtcclxuICBAaW5jbHVkZSBjaGFydCgkY29sb3ItcHJpbWFyeSk7XHJcbiAgJl9fdGl0bGUge1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgd2lkdGg6IDE1MHB4O1xyXG4gICAgdG9wOiAyOXB4O1xyXG4gICAgbGVmdDogMzRweDtcclxuICAgIGNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuNSk7XHJcbiAgfVxyXG4gIC5yZWNoYXJ0cy1zdXJmYWNlIHtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICB9XHJcbn1cclxuIiwiLnNlc3Npb25zLWNoYXJ0LXRvb2x0aXAge1xyXG4gIG1pbi13aWR0aDogMzlweDtcclxuICBwYWRkaW5nOiAwIDdweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZm9udC1zaXplOiA4cHg7XHJcbn1cclxuIiwiLmFjdGl2aXR5LWNoYXJ0IHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgd2lkdGg6IDgzNXB4O1xyXG4gIGhlaWdodDogMzIwcHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogJGNvbG9yLXNlY29uZGFyeTtcclxuICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgJl9fdGl0bGUge1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgdG9wOiAyNHB4O1xyXG4gICAgbGVmdDogMzJweDtcclxuICAgIGNvbG9yOiAkY29sb3Itc2VuYXJ5O1xyXG4gIH1cclxufVxyXG4iLCIuYWN0aXZpdHktY2hhcnQtbGVnZW5kIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIHdpZHRoOiBtYXgtY29udGVudDtcclxuICBnYXA6IDMycHg7XHJcbiAgbGkge1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICBnYXA6IDEycHg7XHJcbiAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICBjb2xvcjogJGNvbG9yLXF1aW5hcnk7XHJcbiAgfVxyXG4gICZfX2ljb24ge1xyXG4gICAgd2lkdGg6IDhweDtcclxuICAgIGhlaWdodDogOHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgJi0td2VpZ2h0IHtcclxuICAgICAgYmFja2dyb3VuZC1jb2xvcjogJGNvbG9yLXRlcnRpYXJ5O1xyXG4gICAgfVxyXG4gICAgJi0tY2Fsb3JpZXMge1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkY29sb3Itb2N0b25hcnk7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcbiIsIi5hY3Rpdml0eS1jaGFydC10b29sdGlwIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgZ2FwOiA3cHg7XHJcbiAgbWFyZ2luOiAwIDUwcHg7XHJcbiAgbWluLXdpZHRoOiAzOXB4O1xyXG4gIGhlaWdodDogNjNweDtcclxuICBwYWRkaW5nOiA0cHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogJGNvbG9yLW9jdG9uYXJ5O1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBmb250LXNpemU6IDdweDtcclxuICBjb2xvcjogd2hpdGU7XHJcbn1cclxuIiwiLm5vLWRhdGEge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICB3aWR0aDogMjQwcHg7XHJcbiAgbGluZS1oZWlnaHQ6IDI0cHg7XHJcbiAgdG9wOiBjYWxjKDUwJSAtIDQ4cHgpO1xyXG4gIGxlZnQ6IGNhbGMoNTAlIC0gMTIwcHgpO1xyXG4gICYtLWFjdGl2aXR5LFxyXG4gICYtLXNjb3JlLFxyXG4gICYtLWluZm9zIHtcclxuICAgIGNvbG9yOiAkY29sb3ItdGVydGlhcnk7XHJcbiAgfVxyXG4gICYtLXBlcmZvcm1hbmNlLFxyXG4gICYtLXNlc3Npb25zIHtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICB9XHJcbiAgaDMge1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7XHJcbiAgfVxyXG4gIHNwYW4ge1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gIH1cclxufVxyXG4iLCIuZXJyb3Itd3JhcHBlciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gOTFweCk7XHJcbiAgcGFkZGluZy1sZWZ0OiAxMTdweDtcclxuICBoMSB7XHJcbiAgICBmb250LXNpemU6IDk2cHg7XHJcbiAgICBsaW5lLWhlaWdodDogOTZweDtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfVxyXG4gIHAge1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxuICAgIGZvbnQtc2l6ZTogMjRweDtcclxuICB9XHJcbn1cclxuIiwiLmRhc2gtd3JhcHBlciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgcGFkZGluZzogNi42dmggMCA4LjV2aCAxMTdweDtcclxuICBoZWFkZXIge1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtd3JhcDogd3JhcDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgZ2FwOiAwIDMwcHg7XHJcbiAgICBtaW4td2lkdGg6IDgzNXB4O1xyXG4gICAgbWF4LXdpZHRoOiAxMTI0cHg7XHJcbiAgICB3aWR0aDogOTIlO1xyXG4gIH1cclxuICBtYWluIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LXdyYXA6IHdyYXA7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGdhcDogMzBweDtcclxuICAgIG1pbi13aWR0aDogODM1cHg7XHJcbiAgICBtYXgtd2lkdGg6IDExMjRweDtcclxuICAgIHdpZHRoOiA5MiU7XHJcbiAgfVxyXG59XHJcblxyXG4uZGFzaC1oZWFkZXItdGl0bGUge1xyXG4gIG1hcmdpbi1ib3R0b206IDcuNXZoO1xyXG4gICYtZ3JlZXRpbmdzIHtcclxuICAgIHdpZHRoOiA4MzVweDtcclxuICAgIG1hcmdpbi1ib3R0b206IDR2aDtcclxuICAgICZfX25hbWUge1xyXG4gICAgICBjb2xvcjogJGNvbG9yLXNlcHRlbmFyeTtcclxuICAgIH1cclxuICB9XHJcbiAgcCB7XHJcbiAgICB3aWR0aDogODM1cHg7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBmb250LXdlaWdodDogNDAwO1xyXG4gIH1cclxufVxyXG5cclxuLmRhc2gtaGVhZGVyLWhpZGRlbiB7XHJcbiAgZmxleDogMSAxIDI1OHB4O1xyXG59XHJcblxyXG4uZGFzaC1jaGFydHMge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICBnYXA6IDMwcHg7XHJcbiAgJl9fZ3JvdXAge1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICB9XHJcbn1cclxuIl0sInNvdXJjZVJvb3QiOiIifQ== */
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <header class="layout-header">
+        <img
+          class="layout-header__logo"
+          src="/static/media/logo.837414860efdf652f26ae7be654e06c5.svg"
+          alt="SportSee logo"
+        />
+        <nav class="layout-header__nav">
+          <ul class="layout-header__list">
+            <li>Accueil</li>
+            <li>Profil</li>
+            <li>Réglage</li>
+            <li>Communauté</li>
+          </ul>
+        </nav>
+      </header>
+      <aside class="sidebar">
+        <nav>
+          <ul class="sidebar__list">
+            <li>
+              <a aria-current="page" class="active" href="/12/profile"
+                ><img
+                  src="/static/media/yoga.76760efccddf14928ee9263744c1b6e6.svg"
+                  alt="Yoga icon"
+              /></a>
+            </li>
+            <li>
+              <a aria-current="page" class="active" href="/12/profile"
+                ><img
+                  src="/static/media/pool.bc12b705d445672f550a8441d581c700.svg"
+                  alt="Pool icon"
+              /></a>
+            </li>
+            <li>
+              <a aria-current="page" class="active" href="/12/profile"
+                ><img
+                  src="/static/media/bike.fe885ecda828d3e2f637bb3b675db76c.svg"
+                  alt="Bike icon"
+              /></a>
+            </li>
+            <li>
+              <a aria-current="page" class="active" href="/12/profile"
+                ><img
+                  src="/static/media/dumbbell.9d22814b98d0ca386d9ddacded4eae80.svg"
+                  alt="Dumbbell icon"
+              /></a>
+            </li>
+          </ul>
+        </nav>
+        <footer class="sidebar__footer">Copyright, SportSee 2020</footer>
+      </aside>
+      <main class="dash-wrapper">
+        <header>
+          <div class="dash-header-title">
+            <h1 class="dash-header-title-greetings">
+              Bonjour
+              <span class="dash-header-title-greetings__name">Karl</span>
+            </h1>
+            <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+          </div>
+          <div class="dash-header-hidden"></div>
+        </header>
+        <div>
+          <div class="dash-charts">
+            <div class="activity-chart">
+              <h2 class="activity-chart__title">Activité quotidienne</h2>
+              <div
+                class="recharts-responsive-container"
+                style="width: 100%; height: 100%; min-width: 0px"
+                width="835"
+                height="320"
+              >
+                <div
+                  class="recharts-wrapper"
+                  role="region"
+                  style="
+                    position: relative;
+                    cursor: default;
+                    width: 835px;
+                    height: 320px;
+                  "
+                >
+                  <svg
+                    class="recharts-surface"
+                    width="835"
+                    height="320"
+                    viewBox="0 0 835 320"
+                  >
+                    <title></title>
+                    <desc></desc>
+                    <defs>
+                      <clipPath id="recharts2-clip">
+                        <rect x="60" y="112" height="143" width="678"></rect>
+                      </clipPath>
+                    </defs>
+                    <g class="recharts-cartesian-grid">
+                      <g class="recharts-cartesian-grid-horizontal">
+                        <line
+                          stroke-dasharray="2 2"
+                          stroke="rgb(222, 222, 222)"
+                          fill="none"
+                          x="60"
+                          y="112"
+                          width="678"
+                          height="143"
+                          offset="[object Object]"
+                          x1="60"
+                          y1="255"
+                          x2="738"
+                          y2="255"
+                        ></line>
+                        <line
+                          stroke-dasharray="2 2"
+                          stroke="rgb(222, 222, 222)"
+                          fill="none"
+                          x="60"
+                          y="112"
+                          width="678"
+                          height="143"
+                          offset="[object Object]"
+                          x1="60"
+                          y1="183.5"
+                          x2="738"
+                          y2="183.5"
+                        ></line>
+                        <line
+                          stroke-dasharray="2 2"
+                          stroke="rgb(222, 222, 222)"
+                          fill="none"
+                          x="60"
+                          y="112"
+                          width="678"
+                          height="143"
+                          offset="[object Object]"
+                          x1="60"
+                          y1="112"
+                          x2="738"
+                          y2="112"
+                        ></line>
+                      </g>
+                    </g>
+                    <g
+                      class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis"
+                    >
+                      <line
+                        stroke="rgb(222, 222, 222)"
+                        orientation="bottom"
+                        width="678"
+                        height="30"
+                        x="60"
+                        y="255"
+                        class="recharts-cartesian-axis-line"
+                        fill="none"
+                        x1="60"
+                        y1="255"
+                        x2="738"
+                        y2="255"
+                        style="fill: rgb(155, 158, 172); font-size: 14px"
+                      ></line>
+                      <g class="recharts-cartesian-axis-ticks">
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="69.85714285714286"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="69.85714285714286" dy="0.71em">1</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="179.57142857142856"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="179.57142857142856" dy="0.71em">2</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="289.2857142857143"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="289.2857142857143" dy="0.71em">3</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="398.99999999999994"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="398.99999999999994" dy="0.71em">4</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="508.71428571428567"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="508.71428571428567" dy="0.71em">5</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="618.4285714285714"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="618.4285714285714" dy="0.71em">6</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            stroke="none"
+                            orientation="bottom"
+                            width="678"
+                            height="30"
+                            x="728.1428571428571"
+                            y="281"
+                            fill="rgb(222, 222, 222)"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="middle"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="728.1428571428571" dy="0.71em">7</tspan>
+                          </text>
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="recharts-layer recharts-cartesian-axis recharts-yAxis yAxis"
+                    >
+                      <g class="recharts-cartesian-axis-ticks">
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            orientation="right"
+                            width="60"
+                            height="143"
+                            x="784"
+                            y="255"
+                            stroke="none"
+                            fill="#666"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="start"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="784" dy="0.355em">74</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            orientation="right"
+                            width="60"
+                            height="143"
+                            x="784"
+                            y="183.5"
+                            stroke="none"
+                            fill="#666"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="start"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="784" dy="0.355em">80</tspan>
+                          </text>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis-tick">
+                          <text
+                            orientation="right"
+                            width="60"
+                            height="143"
+                            x="784"
+                            y="112"
+                            stroke="none"
+                            fill="#666"
+                            class="recharts-text recharts-cartesian-axis-tick-value"
+                            text-anchor="start"
+                            style="fill: rgb(155, 158, 172); font-size: 14px"
+                          >
+                            <tspan x="784" dy="0.355em">86</tspan>
+                          </text>
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="recharts-layer recharts-cartesian-axis recharts-yAxis yAxis"
+                    >
+                      <g class="recharts-cartesian-axis-ticks"></g>
+                    </g>
+                    <g class="recharts-layer recharts-bar">
+                      <g class="recharts-layer recharts-bar-rectangles">
+                        <g class="recharts-layer">
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="71.5"
+                              x="58"
+                              y="183.5"
+                              class="recharts-rectangle"
+                              d="M58,186.5A 3,3,0,0,1,61,183.5L 62,183.5A 3,3,0,0,1,
+        65,186.5L 65,255L 58,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="71.5"
+                              x="167.71428571428572"
+                              y="183.5"
+                              class="recharts-rectangle"
+                              d="M167.71428571428572,186.5A 3,3,0,0,1,170.71428571428572,183.5L 171.71428571428572,183.5A 3,3,0,0,1,
+        174.71428571428572,186.5L 174.71428571428572,255L 167.71428571428572,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="83.41666666666669"
+                              x="277.42857142857144"
+                              y="171.58333333333331"
+                              class="recharts-rectangle"
+                              d="M277.42857142857144,174.58333333333331A 3,3,0,0,1,280.42857142857144,171.58333333333331L 281.42857142857144,171.58333333333331A 3,3,0,0,1,
+        284.42857142857144,174.58333333333331L 284.42857142857144,255L 277.42857142857144,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="83.41666666666669"
+                              x="387.1428571428571"
+                              y="171.58333333333331"
+                              class="recharts-rectangle"
+                              d="M387.1428571428571,174.58333333333331A 3,3,0,0,1,390.1428571428571,171.58333333333331L 391.1428571428571,171.58333333333331A 3,3,0,0,1,
+        394.1428571428571,174.58333333333331L 394.1428571428571,255L 387.1428571428571,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="71.5"
+                              x="496.85714285714283"
+                              y="183.5"
+                              class="recharts-rectangle"
+                              d="M496.85714285714283,186.5A 3,3,0,0,1,499.85714285714283,183.5L 500.85714285714283,183.5A 3,3,0,0,1,
+        503.85714285714283,186.5L 503.85714285714283,255L 496.85714285714283,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="47.66666666666663"
+                              x="606.5714285714286"
+                              y="207.33333333333337"
+                              class="recharts-rectangle"
+                              d="M606.5714285714286,210.33333333333337A 3,3,0,0,1,609.5714285714286,207.33333333333337L 610.5714285714286,207.33333333333337A 3,3,0,0,1,
+        613.5714285714286,210.33333333333337L 613.5714285714286,255L 606.5714285714286,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(40, 45, 48)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="23.833333333333343"
+                              x="716.2857142857142"
+                              y="231.16666666666666"
+                              class="recharts-rectangle"
+                              d="M716.2857142857142,234.16666666666666A 3,3,0,0,1,719.2857142857142,231.16666666666666L 720.2857142857142,231.16666666666666A 3,3,0,0,1,
+        723.2857142857142,234.16666666666666L 723.2857142857142,255L 716.2857142857142,255Z"
+                            ></path>
+                          </g>
+                        </g>
+                      </g>
+                      <g class="recharts-layer"></g>
+                    </g>
+                    <g class="recharts-layer recharts-bar">
+                      <g class="recharts-layer recharts-bar-rectangles">
+                        <g class="recharts-layer">
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="76.26666666666665"
+                              x="73"
+                              y="178.73333333333335"
+                              class="recharts-rectangle"
+                              d="M73,181.73333333333335A 3,3,0,0,1,76,178.73333333333335L 77,178.73333333333335A 3,3,0,0,1,
+        80,181.73333333333335L 80,255L 73,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="69.91111111111113"
+                              x="182.71428571428572"
+                              y="185.08888888888887"
+                              class="recharts-rectangle"
+                              d="M182.71428571428572,188.08888888888887A 3,3,0,0,1,185.71428571428572,185.08888888888887L 186.71428571428572,185.08888888888887A 3,3,0,0,1,
+        189.71428571428572,188.08888888888887L 189.71428571428572,255L 182.71428571428572,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="88.97777777777776"
+                              x="292.42857142857144"
+                              y="166.02222222222224"
+                              class="recharts-rectangle"
+                              d="M292.42857142857144,169.02222222222224A 3,3,0,0,1,295.42857142857144,166.02222222222224L 296.42857142857144,166.02222222222224A 3,3,0,0,1,
+        299.42857142857144,169.02222222222224L 299.42857142857144,255L 292.42857142857144,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="92.15555555555557"
+                              x="402.1428571428571"
+                              y="162.84444444444443"
+                              class="recharts-rectangle"
+                              d="M402.1428571428571,165.84444444444443A 3,3,0,0,1,405.1428571428571,162.84444444444443L 406.1428571428571,162.84444444444443A 3,3,0,0,1,
+        409.1428571428571,165.84444444444443L 409.1428571428571,255L 402.1428571428571,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="50.84444444444446"
+                              x="511.85714285714283"
+                              y="204.15555555555554"
+                              class="recharts-rectangle"
+                              d="M511.85714285714283,207.15555555555554A 3,3,0,0,1,514.8571428571429,204.15555555555554L 515.8571428571429,204.15555555555554A 3,3,0,0,1,
+        518.8571428571429,207.15555555555554L 518.8571428571429,255L 511.85714285714283,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="51.47999999999999"
+                              x="621.5714285714286"
+                              y="203.52"
+                              class="recharts-rectangle"
+                              d="M621.5714285714286,206.52A 3,3,0,0,1,624.5714285714286,203.52L 625.5714285714286,203.52A 3,3,0,0,1,
+        628.5714285714286,206.52L 628.5714285714286,255L 621.5714285714286,255Z"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                            role="img"
+                          >
+                            <path
+                              fill="rgb(230, 0, 0)"
+                              radius="3,3,0,0"
+                              width="7"
+                              height="123.93333333333334"
+                              x="731.2857142857142"
+                              y="131.06666666666666"
+                              class="recharts-rectangle"
+                              d="M731.2857142857142,134.06666666666666A 3,3,0,0,1,734.2857142857142,131.06666666666666L 735.2857142857142,131.06666666666666A 3,3,0,0,1,
+        738.2857142857142,134.06666666666666L 738.2857142857142,255L 731.2857142857142,255Z"
+                            ></path>
+                          </g>
+                        </g>
+                      </g>
+                      <g class="recharts-layer"></g>
+                    </g>
+                  </svg>
+                  <div
+                    class="recharts-legend-wrapper"
+                    style="
+                      position: absolute;
+                      width: 278px;
+                      height: auto;
+                      top: 24px;
+                      right: 26px;
+                    "
+                  >
+                    <ul class="activity-chart-legend">
+                      <li>
+                        <div
+                          class="activity-chart-legend__icon activity-chart-legend__icon--weight"
+                        ></div>
+                        <span>Poids (kg)</span>
+                      </li>
+                      <li>
+                        <div
+                          class="activity-chart-legend__icon activity-chart-legend__icon--calories"
+                        ></div>
+                        <span> Calories brûlées (kCal)</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    tabindex="-1"
+                    role="dialog"
+                    class="recharts-tooltip-wrapper"
+                    style="
+                      pointer-events: none;
+                      visibility: hidden;
+                      position: absolute;
+                      top: 0px;
+                      left: 0px;
+                      outline: none;
+                    "
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="dash-charts__group">
+              <div class="sessions-chart">
+                <h2 class="sessions-chart__title">
+                  Durée moyenne des sessions
+                </h2>
+                <div
+                  class="recharts-responsive-container"
+                  style="width: 100%; height: 100%; min-width: 0px"
+                  width="258"
+                  height="263"
+                >
+                  <div
+                    class="recharts-wrapper"
+                    role="region"
+                    style="
+                      position: relative;
+                      cursor: default;
+                      width: 258px;
+                      height: 263px;
+                    "
+                  >
+                    <svg
+                      class="recharts-surface"
+                      width="258"
+                      height="263"
+                      viewBox="0 0 258 263"
+                    >
+                      <title></title>
+                      <desc></desc>
+                      <defs>
+                        <clipPath id="recharts12-clip">
+                          <rect x="-18" y="90" height="129" width="294"></rect>
+                        </clipPath>
+                      </defs>
+                      <g
+                        class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis"
+                      >
+                        <g class="recharts-cartesian-axis-ticks">
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="18.75"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="18.75" dy="0.71em">L</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="55.5"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="55.5" dy="0.71em">M</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="92.25"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="92.25" dy="0.71em">M</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="129"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="129" dy="0.71em">J</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="165.75"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="165.75" dy="0.71em">V</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="202.5"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="202.5" dy="0.71em">S</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="239.25"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="239.25" dy="0.71em">D</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="294"
+                              height="30"
+                              x="258"
+                              y="227"
+                              stroke="none"
+                              fill="#666"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              style="
+                                font-size: 12px;
+                                fill: rgba(255, 255, 255, 0.5);
+                              "
+                            >
+                              <tspan x="258" dy="0.71em"></tspan>
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                      <defs>
+                        <linearGradient id="color-line">
+                          <stop stop-color="rgba(255,255,255, 0.3)"></stop>
+                          <stop offset="100%" stop-color="white"></stop>
+                        </linearGradient>
+                      </defs>
+                      <g class="recharts-layer recharts-line">
+                        <path
+                          stroke="url(#color-line)"
+                          stroke-width="2"
+                          fill="none"
+                          width="294"
+                          height="129"
+                          class="recharts-curve recharts-line-curve"
+                          stroke-dasharray="479.24615478515625px 0px"
+                          d="M-18,145.286C-18,145.286,6.5,143.136,18.75,145.286C31,147.436,43.25,162.793,55.5,158.186C67.75,153.579,80,125.936,92.25,117.643C104.5,109.35,116.75,94.607,129,108.429C141.25,122.25,153.5,185.214,165.75,200.571C178,215.929,190.25,219,202.5,200.571C214.75,182.143,227,108.429,239.25,90C251.5,71.571,276,90,276,90"
+                        ></path>
+                        <g class="recharts-layer"></g>
+                      </g>
+                    </svg>
+                    <div
+                      tabindex="-1"
+                      role="dialog"
+                      class="recharts-tooltip-wrapper"
+                      style="
+                        pointer-events: none;
+                        visibility: hidden;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        outline: none;
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="perf-chart">
+                <div
+                  class="recharts-responsive-container"
+                  style="width: 100%; height: 100%; min-width: 0px"
+                  width="258"
+                  height="263"
+                >
+                  <div
+                    class="recharts-wrapper"
+                    role="region"
+                    style="
+                      position: relative;
+                      cursor: default;
+                      width: 258px;
+                      height: 263px;
+                    "
+                  >
+                    <svg
+                      cx="50%"
+                      cy="50%"
+                      class="recharts-surface"
+                      width="258"
+                      height="263"
+                      viewBox="0 0 258 263"
+                    >
+                      <title></title>
+                      <desc></desc>
+                      <defs>
+                        <clipPath id="recharts18-clip">
+                          <rect x="5" y="5" height="253" width="248"></rect>
+                        </clipPath>
+                      </defs>
+                      <g class="recharts-polar-grid">
+                        <g class="recharts-polar-grid-concentric">
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,131.5L 129,131.5L 129,131.5L 129,131.5L 129,131.5L 129,131.5Z"
+                          ></path>
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,113.5L 144.5884572681199,122.5L 144.5884572681199,140.5L 129,149.5L 113.4115427318801,140.5L 113.4115427318801,122.5Z"
+                          ></path>
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,95.5L 160.1769145362398,113.5L 160.1769145362398,149.5L 129,167.5L 97.82308546376021,149.5L 97.82308546376021,113.5Z"
+                          ></path>
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,77.5L 175.7653718043597,104.5L 175.7653718043597,158.5L 129,185.5L 82.23462819564031,158.5L 82.23462819564031,104.5Z"
+                          ></path>
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,59.5L 191.35382907247958,95.5L 191.35382907247958,167.5L 129,203.5L 66.64617092752042,167.5L 66.64617092752042,95.5Z"
+                          ></path>
+                          <path
+                            stroke="#ccc"
+                            cx="129"
+                            cy="131.5"
+                            fill="none"
+                            class="recharts-polar-grid-concentric-polygon"
+                            d="M 129,41.5L 206.94228634059948,86.5L 206.94228634059948,176.5L 129,221.5L 51.05771365940052,176.5L 51.05771365940052,86.5Z"
+                          ></path>
+                        </g>
+                      </g>
+                      <g class="recharts-layer recharts-polar-angle-axis">
+                        <path
+                          cx="129"
+                          cy="131.5"
+                          orientation="outer"
+                          radius="90"
+                          fill="none"
+                          class="recharts-polygon angleAxis"
+                          d="M129,41.5L206.94228634059948,86.5L206.94228634059948,176.5L129,221.5L51.05771365940052,176.5L51.05771365940052,86.5L129,41.5Z"
+                        ></path>
+                        <g
+                          class="recharts-layer recharts-polar-angle-axis-ticks"
+                        >
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="129"
+                              y1="41.5"
+                              x2="129"
+                              y2="33.5"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="23.7"
+                              x="129"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="middle"
+                            >
+                              <tspan x="129" dy="0.355em">Intensité</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="206.94228634059948"
+                              y1="86.5"
+                              x2="213.870489570875"
+                              y2="82.5"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="77.6"
+                              x="213.95536006044588"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="start"
+                            >
+                              <tspan x="213.95536006044588" dy="0.355em">
+                                Vitesse
+                              </tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="206.94228634059948"
+                              y1="176.5"
+                              x2="213.870489570875"
+                              y2="180.5"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="185.4"
+                              x="213.95536006044588"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="start"
+                            >
+                              <tspan x="213.95536006044588" dy="0.355em">
+                                Force
+                              </tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="129"
+                              y1="221.5"
+                              x2="129"
+                              y2="229.5"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="239.3"
+                              x="129"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="middle"
+                            >
+                              <tspan x="129" dy="0.355em">Endurance</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="51.05771365940052"
+                              y1="176.5"
+                              x2="44.129510429125006"
+                              y2="180.5"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="185.4"
+                              x="44.04463993955413"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="end"
+                            >
+                              <tspan x="44.04463993955413" dy="0.355em">
+                                Energie
+                              </tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-polar-angle-axis-tick"
+                          >
+                            <line
+                              class="angleAxis"
+                              cx="129"
+                              cy="131.5"
+                              orientation="outer"
+                              radius="90"
+                              fill="none"
+                              x1="51.05771365940052"
+                              y1="86.5"
+                              x2="44.12951042912502"
+                              y2="82.49999999999999"
+                            ></line>
+                            <text
+                              orientation="outer"
+                              radius="90"
+                              stroke="none"
+                              fill="white"
+                              y="77.59999999999998"
+                              x="44.044639939554145"
+                              font-size="12px"
+                              class="recharts-text angleAxis"
+                              text-anchor="end"
+                            >
+                              <tspan x="44.044639939554145" dy="0.355em">
+                                Cardio
+                              </tspan>
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                      <g class="recharts-layer recharts-polar-radius-axis"></g>
+                      <g class="recharts-layer recharts-radar">
+                        <g class="recharts-layer recharts-radar-polygon">
+                          <path
+                            fill="rgba(255, 1, 1, 0.7)"
+                            class="recharts-polygon"
+                            d="M129,91L206.94228634059948,86.5L148.48557158514987,142.75L129,194.5L82.23462819564031,158.5L97.82308546376021,113.5L129,91Z"
+                          ></path>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="score-chart">
+                <h2 class="score-chart__title">Score</h2>
+                <div
+                  class="recharts-responsive-container"
+                  style="width: 100%; height: 100%; min-width: 0px"
+                  width="258"
+                  height="263"
+                >
+                  <div
+                    class="recharts-wrapper"
+                    role="region"
+                    style="
+                      position: relative;
+                      cursor: default;
+                      width: 258px;
+                      height: 263px;
+                    "
+                  >
+                    <svg
+                      cx="50%"
+                      cy="50%"
+                      class="recharts-surface"
+                      width="258"
+                      height="263"
+                      viewBox="0 0 258 263"
+                    >
+                      <title></title>
+                      <desc></desc>
+                      <defs>
+                        <clipPath id="recharts22-clip">
+                          <rect x="5" y="5" height="253" width="248"></rect>
+                        </clipPath>
+                      </defs>
+                      <g class="recharts-layer recharts-pie" tabindex="0">
+                        <g
+                          class="recharts-layer recharts-pie-sector"
+                          tabindex="-1"
+                        >
+                          <path
+                            tabindex="-1"
+                            name="0"
+                            stroke="#fff"
+                            fill="white"
+                            cx="129"
+                            cy="131.5"
+                            class="recharts-sector"
+                            d="M 209,131.5
+    A 80,80,0,
+    1,0,
+    208.9999999878153,131.50139626340152
+  L 129,131.5 Z"
+                            role="img"
+                          ></path>
+                        </g>
+                      </g>
+                      <g class="recharts-layer recharts-pie" tabindex="0">
+                        <g class="recharts-layer">
+                          <g
+                            class="recharts-layer recharts-pie-sector"
+                            tabindex="-1"
+                          >
+                            <path
+                              tabindex="-1"
+                              name="0"
+                              stroke="transparent"
+                              fill="red"
+                              cx="129"
+                              cy="131.5"
+                              class="recharts-sector"
+                              d="M 55.515307716504665,173.92640687119285
+    A5,5,0,0,1,48.54561993512257,171.83723749063952
+    A90,90,0,0,1,40.32070906634213,116.13825011583431
+    A5,5,0,0,1,46.3890906909875,112.12378615058881
+  L46.3890906909875,112.12378615058881
+      A5,5,0,0,1,50.17396361452633,117.84511121407493
+      A80,80,0,0,0,57.48499549788673,167.3553222139018
+      A5,5,0,0,1,55.515307716504665,173.92640687119285Z"
+                              role="img"
+                            ></path>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-pie-sector"
+                            tabindex="-1"
+                          >
+                            <path
+                              tabindex="-1"
+                              name="1"
+                              stroke="transparent"
+                              fill="transparent"
+                              cx="129"
+                              cy="131.5"
+                              class="recharts-sector"
+                              d="M 46.3890906909875,112.12378615058881
+    A5,5,0,0,1,42.73854180869024,105.8297676148244
+    A90,90,0,1,1,53.8397375821814,181.0069182365924
+    A5,5,0,0,1,55.51530771650465,173.92640687119285
+  L55.51530771650465,173.92640687119285
+      A5,5,0,0,1,62.19087785082792,175.5061495436377
+      A80,80,0,1,0,52.32314827439133,108.68201565762169
+      A5,5,0,0,1,46.3890906909875,112.12378615058881Z"
+                              role="img"
+                            ></path>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <div
+                      class="recharts-legend-wrapper"
+                      style="
+                        position: absolute;
+                        width: 248px;
+                        height: auto;
+                        left: 5px;
+                        top: 105px;
+                      "
+                    >
+                      <p class="score-chart-legend">
+                        <span>12%</span><br /><span>de votre</span><br /><span
+                          >objectif</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <article class="key-infos">
+            <div class="info-card">
+              <div
+                class="info-card__icon-container"
+                style="background-color: rgba(255, 0, 0, 0.07)"
+              >
+                <img
+                  src="/static/media/energy.25fef86ed5860200bdf90f9cd185e1e3.svg"
+                  alt="Flamme"
+                />
+              </div>
+              <div class="info-card__details">
+                <p>1,930kCal</p>
+                <p>Calories</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div
+                class="info-card__icon-container"
+                style="background-color: rgba(74, 184, 255, 0.1)"
+              >
+                <img
+                  src="/static/media/chicken.ffbc3b88a759c706993bb26fbd66113b.svg"
+                  alt="Poulet"
+                />
+              </div>
+              <div class="info-card__details">
+                <p>155g</p>
+                <p>Protéines</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div
+                class="info-card__icon-container"
+                style="background-color: rgba(249, 206, 35, 0.1)"
+              >
+                <img
+                  src="/static/media/apple.1c96dc7e41fec65924680349e033ee53.svg"
+                  alt="Pomme"
+                />
+              </div>
+              <div class="info-card__details">
+                <p>290g</p>
+                <p>Glucides</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div
+                class="info-card__icon-container"
+                style="background-color: rgba(253, 81, 129, 0.1)"
+              >
+                <img
+                  src="/static/media/cheeseburger.18f60e0efe37e86bcac036d673f0bab0.svg"
+                  alt="Burger"
+                />
+              </div>
+              <div class="info-card__details">
+                <p>50g</p>
+                <p>Lipides</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+    <span
+      id="recharts_measurement_span"
+      aria-hidden="true"
+      style="
+        position: absolute;
+        top: -20000px;
+        left: 0px;
+        padding: 0px;
+        margin: 0px;
+        border: none;
+        white-space: pre;
+        fill: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        letter-spacing: normal;
+      "
+      >L</span
+    >
+  </body>
+</html>

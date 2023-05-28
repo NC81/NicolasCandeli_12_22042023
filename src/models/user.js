@@ -7,7 +7,7 @@ import cheeseburger from '../assets/cheeseburger.svg'
  * Class representing user data model used in profile page
  *
  * @param {Object} raw_data - All user raw data
- * @param {Object} raw_data.main - User main information raw data (first/last name, age, KPI, key data)
+ * @param {Object} raw_data.main - User main information raw data
  * @param {Object} raw_data.activity - User daily activity raw data
  * @param {Object} raw_data.averageSessions - User average sessions raw data
  * @param {Object} raw_data.performance - User performance per activity type raw data
@@ -21,7 +21,8 @@ export default class User {
 
   /**
    * Getter that converts activity raw data into usable bar chart data
-   * @return {Array} Array of objects with new X axis tick names
+   *
+   * @returns {Array} Array of objects with new X axis tick name
    */
   get activity() {
     if (!this.raw_data.activity || !this.raw_data.activity.sessions) {
@@ -48,7 +49,8 @@ export default class User {
 
   /**
    * Getter that converts average sessions raw data into usable line chart data
-   * @return {Array} Extended array of objects with new X axis tick names
+   *
+   * @returns {Array} Extended array of objects with new X axis tick name
    */
   get averageSessions() {
     if (
@@ -85,7 +87,8 @@ export default class User {
 
   /**
    * Getter that converts performance raw data into usable radar chart data
-   * @return {Array} Array of objects with new polar angle axis tick names
+   *
+   * @returns {Array} Array of objects with new polar angle axis tick name
    */
   get performance() {
     if (
@@ -116,7 +119,8 @@ export default class User {
 
   /**
    * Getter that converts score rate raw data into usable pie chart data
-   * @return {Array} Array of two objects illustrating pie slices
+   *
+   * @returns {Array} Array of two objects illustrating slices for score and the rest
    */
   get score() {
     if (!this.raw_data.main.todayScore && !this.raw_data.main.score) {
@@ -142,8 +146,10 @@ export default class User {
   }
 
   /**
-   * Getter that creates an object for each key data type
-   * @return {Object} Object with four objects facilitating key data cards rendering
+   * Getter that replaces key infos properties to facilitate InfoCard component rendering
+   *
+   * @returns {Object} Object of four objects used to render key info name, formatted value,
+   * unit of measure, background color, image icon and alternative text in each card
    */
   get keyData() {
     if (!this.raw_data.main.keyData) {

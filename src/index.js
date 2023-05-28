@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: ':id/profile',
+        path: 'profile/:id',
         element: <Profile />,
         loader: profileLoader,
       },
