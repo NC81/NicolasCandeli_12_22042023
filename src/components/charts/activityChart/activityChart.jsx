@@ -14,8 +14,6 @@ import {
 } from 'recharts'
 
 export default function ActivityChart({ data }) {
-  // console.log('ActivityChart', data)
-
   const axisStyle = {
     fill: '#9B9EAC',
     fontSize: '14px',

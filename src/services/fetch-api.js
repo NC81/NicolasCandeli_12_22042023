@@ -2,7 +2,7 @@
  * Object of user API data and error content
  *
  * @typedef {Object} APIUser
- * @property {Object} raw_data - User API data coming from all required endpoints
+ * @property {Object} raw_data - User API data from 4 endpoints
  * @property {Response} httpError - Error response if an HTTP error has occured
  * @property {String} netError Name and message of error if a network error has occured
  */
@@ -22,12 +22,12 @@ export default async function fetchAPI(id) {
       fetch(`http://localhost:3000/user/${id}/performance`),
     ])
 
-    let error
+    let httpError
     const jsonPromises = responses.map((response) =>
       response.ok
         ? response.json()
         : response.url === `http://localhost:3000/user/${id}/`
-        ? (error = response) && undefined
+        ? (httpError = response) && undefined
         : undefined
     )
     const finalData = await Promise.all(jsonPromises)
@@ -36,7 +36,7 @@ export default async function fetchAPI(id) {
 
     return {
       raw_data: { main, activity, averageSessions, performance },
-      httpError: error,
+      httpError: httpError,
     }
   } catch (err) {
     return {

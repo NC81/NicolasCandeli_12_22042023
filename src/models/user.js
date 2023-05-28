@@ -4,7 +4,7 @@ import apple from '../assets/apple.svg'
 import cheeseburger from '../assets/cheeseburger.svg'
 
 /**
- * Class representing user data model used in profile page
+ * Class representing User data models passed to profile page components
  *
  * @param {Object} raw_data - All user raw data
  * @param {Object} raw_data.main - User main information raw data
@@ -22,7 +22,7 @@ export default class User {
   /**
    * Getter that converts activity raw data into usable bar chart data
    *
-   * @returns {Array} Array of objects with new X axis tick name
+   * @returns {(Array | undefined)} Array of objects with new X axis tick name or undefined
    */
   get activity() {
     if (!this.raw_data.activity || !this.raw_data.activity.sessions) {
@@ -50,7 +50,7 @@ export default class User {
   /**
    * Getter that converts average sessions raw data into usable line chart data
    *
-   * @returns {Array} Extended array of objects with new X axis tick name
+   * @returns {(Array | undefined)} Extended array of objects with new X axis tick name or undefined
    */
   get averageSessions() {
     if (
@@ -88,7 +88,7 @@ export default class User {
   /**
    * Getter that converts performance raw data into usable radar chart data
    *
-   * @returns {Array} Array of objects with new polar angle axis tick name
+   * @returns {(Array | undefined)} Array of objects with new polar angle axis tick name or undefined
    */
   get performance() {
     if (
@@ -120,7 +120,7 @@ export default class User {
   /**
    * Getter that converts score rate raw data into usable pie chart data
    *
-   * @returns {Array} Array of two objects illustrating slices for score and the rest
+   * @returns {(Array | undefined)} Array of two objects illustrating slices for score and the rest or undefined
    */
   get score() {
     if (!this.raw_data.main.todayScore && !this.raw_data.main.score) {
@@ -128,9 +128,9 @@ export default class User {
     }
 
     const score = this.raw_data.main.todayScore ?? this.raw_data.main.score
+
     const scoreAsPercent = score * 100
     const restAsPercent = 100 - scoreAsPercent
-
     const data = [
       {
         value: scoreAsPercent,
@@ -146,10 +146,9 @@ export default class User {
   }
 
   /**
-   * Getter that replaces key infos properties to facilitate InfoCard component rendering
+   * Getter that replaces key infos properties with objects facilitating InfoCard component rendering
    *
-   * @returns {Object} Object of four objects used to render key info name, formatted value,
-   * unit of measure, background color, image icon and alternative text in each card
+   * @returns {(Object | undefined)} Object of four objects used to render key infos cards or undefined
    */
   get keyData() {
     if (!this.raw_data.main.keyData) {

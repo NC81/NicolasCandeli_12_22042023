@@ -5,7 +5,7 @@ export default function NoDataText({ chart, title }) {
       <h3>{title}</h3>
       <span>Données manquantes !</span>
       <span>
-        <i>Pensez à mettre à jour vos données</i>
+        <i>Pensez à les mettre à jour...</i>
       </span>
     </div>
   )

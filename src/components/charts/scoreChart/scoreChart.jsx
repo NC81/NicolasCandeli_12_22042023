@@ -4,8 +4,6 @@ import ScoreChartLegend from './legend/scoreChartLegend'
 import NoDataText from '../../noDataText/noDataText'
 
 export default function ScoreChart({ data }) {
-  // console.log('score', data)
-
   return (
     <article className="score-chart">
       {!data ? (

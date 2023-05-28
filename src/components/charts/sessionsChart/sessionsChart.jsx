@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { curveCardinal } from 'd3-shape'
 import PropTypes from 'prop-types'
 import NoDataText from '../../noDataText/noDataText'
+import SessionsChartTooltip from './tooltip/sessionsChartTooltip'
 import {
   LineChart,
   Line,
@@ -11,7 +12,6 @@ import {
   ResponsiveContainer,
   ReferenceArea,
 } from 'recharts'
-import SessionsChartTooltip from './tooltip/sessionsChartTooltip'
 
 export default function SessionsChart({ data }) {
   const [isTooltipActive, setTooltipActive] = useState(false)
@@ -78,7 +78,7 @@ export default function SessionsChart({ data }) {
                 strokeWidth={2}
                 dot={false}
                 activeDot={<CustomActiveDot />}
-                animationDuration={500}
+                isAnimationActive={false}
               />
             </LineChart>
           </ResponsiveContainer>

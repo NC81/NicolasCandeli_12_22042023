@@ -11,8 +11,6 @@ import {
 } from 'recharts'
 
 export default function PerformanceChart({ data }) {
-  // console.log('PerformanceChart', data)
-
   return (
     <article className="perf-chart">
       {!data ? (

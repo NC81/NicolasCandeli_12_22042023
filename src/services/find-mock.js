@@ -4,7 +4,7 @@ const mockData = require('../data/mock-data')
  * Object of user mock data and error boolean
  *
  * @typedef {Object} mockUser
- * @property {Object} raw_data - User mock data from all required resources
+ * @property {Object} raw_data - User mock data from 4 local sources
  * @property {Response} isError - Indicates whether an error has occured
  */
 

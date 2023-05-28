@@ -42,6 +42,7 @@ export default function Profile() {
 
 /**
  * React Router loader function that throws exceptions and provides user formatted data
+ * required in profile page
  *
  * @param {Object} params - Object with dynamic params from URL
  * @throws {Error} - If a network error has occured and mock service has not found user
@@ -67,7 +68,7 @@ export async function profileLoader({ params }) {
     return newUser
   } else if (!mockData.isError) {
     const newUser = new User(mockData.raw_data)
-    console.log('MOCK data', newUser)
+    console.log('Mock data', newUser)
     return newUser
   }
 }

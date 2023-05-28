@@ -3,8 +3,6 @@ import InfoCard from './infoCard/infoCard'
 import NoDataText from '../../components/noDataText/noDataText'
 
 export default function KeyInfos({ data }) {
-  // console.log('KeyInfos', data)
-
   return (
     <div className="dash-content-cards">
       {!data ? (
