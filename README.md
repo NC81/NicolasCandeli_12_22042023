@@ -6,6 +6,4 @@
 - Clone this repository
 - Type `yarn dev` in API directory
 - Type `npm start` in P12 directory
-- Enter URL:
-  `http://localhost:3001/profile/12`
-  `http://localhost:3001/profile/18`
+- Enter URL: `http://localhost:3001/profile/ID` - **12** and **18** as existing IDs
